@@ -1,0 +1,19 @@
+html {
+    font-size: 150%;
+    text-align: center;
+}
+
+th,
+td {
+    padding-left: 50px;
+}
+
+th {
+    padding-bottom: 30px;
+    color: red;
+}
+
+table, th,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
