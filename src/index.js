@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import OrderTable from './orderTable';
+import App from './app';
 
-
-ReactDOM.render(<OrderTable />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 
 

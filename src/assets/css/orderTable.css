@@ -17,3 +17,19 @@ table, th,td {
     border: 1px solid black;
     border-collapse: collapse;
   }
+
+.tr-zero {
+    color: blue;
+}
+
+.tr-one {
+    color: yellow;
+}
+
+.tr-second {
+    color: green;
+}
+
+.tr-three {
+    color: red;
+}

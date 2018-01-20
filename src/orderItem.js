@@ -1,39 +1,57 @@
 import React, { Component } from 'react';
-import './css/orderItem.css';
-
+import './assets/css/orderItem.css';
+import iconDone from './assets/done.png'
+import iconError from './assets/error.jpg'
 
 
 class OrderItem extends Component {
     constructor(props) {
         super(props);
-         
+        this.state = {
+            order: props.order
+        } 
+    this.buttonClicked = this.buttonClicked.bind(this);
+
     }
 
-    removeItem () {
-        this.props.onDelete(this.props.order)
+    buttonClicked () {
+        this.props.buttonClicked(this.state.order)
     }
-    
+
     render () {
 
         var orderDrink = [];
         var orderCount = [];
-        for (var i = 0; i < this.props.order.items.length; i++) {
-            orderDrink.push(<div key={i}>{this.props.order.items[i].name} </div>);
-            orderCount.push(<div key={i}>{this.props.order.items[i].count}</div>);
+        for (var i = 0; i < this.state.order.items.length; i++) {
+            orderDrink.push(<div key={i}>{this.state.order.items[i].name} </div>);
+            orderCount.push(<div key={i}>{this.state.order.items[i].count}</div>);
+        }
+        var button 
+
+        if (this.state.order.status < 2) {
+            var icon;
+            if (this.state.order.status === 0) {
+                icon = iconDone;
+            } else {
+                icon = iconError;
+            }
+            button= <img className="done-button" src={icon} alt={"icon"} onClick={this.buttonClicked.bind(this)} />
         }
 
         return (
 
-                <tr>
-                    <td>{this.props.order.timestamp} Uhr  </td>       
-                    <td>{this.props.order.tableNumber} </td>
-                    <td>{orderDrink}</td>    
-                    <td>{orderCount} </td>  
-                    <td><button onClick={this.removeItem.bind(this)}>Delete</button></td> 
-                                     
-                </tr> 
-        )
+            <tr>
+
+                <td>{this.state.order.timestamp} Uhr  </td>       
+                <td>{this.state.order.tableNumber} </td>
+                <td>{orderDrink}</td>    
+                <td>{orderCount} </td>  
+                <td>{button}</td>
+
+            </tr> 
+        ) 
     }
 }
 
 export default OrderItem;
+
