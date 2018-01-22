@@ -3,7 +3,6 @@ import './assets/css/orderItem.css';
 import iconDone from './assets/done.png'
 import iconError from './assets/error.jpg'
 
-
 class OrderItem extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +10,6 @@ class OrderItem extends Component {
             order: props.order
         } 
     this.buttonClicked = this.buttonClicked.bind(this);
-
     }
 
     buttonClicked () {
@@ -38,16 +36,18 @@ class OrderItem extends Component {
             button= <img className="done-button" src={icon} alt={"icon"} onClick={this.buttonClicked.bind(this)} />
         }
 
+        var tableNumberValue;
+        if (!this.props.history) {
+            tableNumberValue = <td>{this.state.order.tableNumber}</td>
+        } 
+
         return (
-
             <tr>
-
-                <td>{this.state.order.timestamp} Uhr  </td>       
-                <td>{this.state.order.tableNumber} </td>
+                <td>{this.state.order.timestamp} Uhr  </td>  
+                {tableNumberValue}     
                 <td>{orderDrink}</td>    
                 <td>{orderCount} </td>  
                 <td>{button}</td>
-
             </tr> 
         ) 
     }

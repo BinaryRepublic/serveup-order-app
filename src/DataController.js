@@ -1,35 +1,35 @@
-
 class DataController {
 
-
     structureOrderData(data) {
-        var tables = []
+        var tablesNumbers = []
         for (var i = 0; i < data.length; i++) { 
-            tables.push(data[i].tableNumber)
-        var uniq = [ ...new Set(tables) ]; 
-        console.log(uniq)
+            tablesNumbers.push(data[i].tableNumber)
         }
+
+        var uniqueTablesNumbers = [ ...new Set(tablesNumbers) ]; 
+
+        var tables = [];
+        uniqueTablesNumbers.forEach(function(tableNumber) {
+            var table = {
+                tableNumber: tableNumber,
+                orders: []
+            }
+            tables.push(table);
+        }) 
 
         var orderTableNumber;
         for (var x = 0; x < data.length; x++) {
-            for (var y = 0; y < uniq.length; y++) {
+            for (var y = 0; y < tables.length; y++) {
             orderTableNumber = data[x].tableNumber
-            console.log(orderTableNumber)
-            console.log(uniq[y])
-                if (orderTableNumber === uniq[y]) {
-                    uniq[y].push(data[x])
-                console.log(uniq)
+            if (orderTableNumber === tables[y].tableNumber) {
+                tables[y].orders.push(data[x])
             } else {
             }
         }}
+        console.log(tables)
+        return tables
     }
-
-
 }
 module.exports = DataController
 
-
-// uniq = [5, 3, 7, 6]
-
-// Insgesammt 8 orders von 4 Tischen
 

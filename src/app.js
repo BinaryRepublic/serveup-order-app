@@ -12,8 +12,6 @@ class App extends Component {
             display:0,
             orders: testdata     
         }
-        let dataController = new DataController();
-        dataController.structureOrderData(testdata);
       this.showOrderTable = this.showOrderTable.bind(this);
       this.showHistory = this.showHistory.bind(this);
     }
@@ -25,7 +23,6 @@ class App extends Component {
     }
 
     render() {
-
         if(this.state.display === 0) {
             return (
                 <div>
@@ -35,11 +32,12 @@ class App extends Component {
             );
         } 
         else if(this.state.display === 1) {
+            let dataController = new DataController();
+            var tables = dataController.structureOrderData(this.state.orders);
             return (
                 <div>
                     <button onClick={this.showOrderTable}>Order Table</button>
-                    <History/>
-
+                    <History tables={tables}/>
                 </div>
             );
         } 

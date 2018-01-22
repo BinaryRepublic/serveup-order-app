@@ -12,8 +12,6 @@ class OrderTable extends Component {
         this.add = this.add.bind(this);
         this.orderFinished = this.orderFinished.bind(this);
         this.orderError = this.orderError.bind(this);
-
-
     }
    
     add () {
@@ -70,15 +68,14 @@ class OrderTable extends Component {
             var order = this.state.orders[i]
             if (this.props.history) {
                 if (order.status > 0) {
-                    orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderError} order={order}/>);
+                    orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderError} order={order} history={this.props.history}/>);
                 }   
             } else {
 
                 if (order.status === 0) {
-                    orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderFinished} order={order}/>);
+                    orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderFinished} order={order} history={this.props.history}/>);
                 } 
             }
-           
         }
 
         var tableNumberColumn;
@@ -89,7 +86,6 @@ class OrderTable extends Component {
         return (
             <div>
                 <button onClick={this.add}>Add New</button>
-
                 <table> 
                     <tbody>                                    
                         <tr>
