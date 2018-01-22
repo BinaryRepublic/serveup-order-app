@@ -163,6 +163,7 @@ class History extends Component {
 
             }
             return (
+                
                 <div>
                     {tableElements}
                 </div>

@@ -2,40 +2,18 @@ import React, { Component } from 'react';
 import './assets/css/app.css';
 import OrderTable from './orderTable';
 import History from './history';
-
+import DataController from './DataController';
+import testdata from './test.json';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             display:0,
-            orders: 
-            [
-                {
-                    "status" : 0,
-                    "timestamp" :  1516449942856,
-                    "tableNumber": 5,
-                    "items": [
-                        {
-                            "name": "Cola",
-                            "count": 2
-                        },
-                        {
-                            "name": "Fanta",
-                            "count": 2
-                        },
-                        {
-                            "name": "Apfelschorle",
-                            "count": 2
-                        },
-                        {
-                            "name": "Wein",
-                            "count": 2
-                        }  
-                    ]
-                }
-            ]       
+            orders: testdata     
         }
+        let dataController = new DataController();
+        dataController.structureOrderData(testdata);
       this.showOrderTable = this.showOrderTable.bind(this);
       this.showHistory = this.showHistory.bind(this);
     }

@@ -68,7 +68,6 @@ class OrderTable extends Component {
         var orderElements = [];
         for (var i = 0; i < this.state.orders.length; i++) { 
             var order = this.state.orders[i]
-            console.log(order)
             if (this.props.history) {
                 if (order.status > 0) {
                     orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderError} order={order}/>);
