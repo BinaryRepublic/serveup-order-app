@@ -4,6 +4,7 @@ import OrderTable from './orderTable';
 import History from './history';
 import DataController from './DataController';
 import testdata from './test.json';
+const io = require('socket.io-client');
 
 class App extends Component {
     constructor(props) {
@@ -12,8 +13,17 @@ class App extends Component {
             display:0,
             orders: testdata     
         }
-      this.showOrderTable = this.showOrderTable.bind(this);
-      this.showHistory = this.showHistory.bind(this);
+        
+        const socket = io('http://138.68.71.39:9000');
+        socket.on('connect', function(){
+            socket.emit("restaurantId", "abc123");
+        });
+        socket.on('neworder', function(order){
+            console.log(order);
+        });
+
+        this.showOrderTable = this.showOrderTable.bind(this);
+        this.showHistory = this.showHistory.bind(this);
     }
     showOrderTable() {
       this.setState({display:0});
