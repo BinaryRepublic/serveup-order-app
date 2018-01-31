@@ -13,7 +13,7 @@ branches:
   only:
   - master
 script:
-  - npm run install
+  - npm install
   - npm run test
   - docker build -f Dockerfile -t gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-app:latest .
   - docker run -d gcr.io/$CLOUDSDK_CORE_PROJECT/ro-order-app:latest
