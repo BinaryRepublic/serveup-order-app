@@ -9,16 +9,16 @@
                 "count": 2
             },
             {
-                "name": "Fanta",
-                "count": 2
+                "name": "Fanta Light",
+                "count": 3
             },
             {
                 "name": "Apfelschorle",
                 "count": 2
             },
             {
-                "name": "Wein",
-                "count": 2
+                "name": "Wasser mit Gas",
+                "count": 1
             }
         ]
     },
@@ -28,16 +28,32 @@
         "tableNumber": 3,
         "items": [
             {
-                "name": "Cola",
-                "count": 2
+                "name": "Cola Zero",
+                "count": 6
             },
             {
                 "name": "Fanta",
-                "count": 2
+                "count": 1
             },
             {
                 "name": "Apfelschorle",
                 "count": 2
+            },
+            {
+                "name": "Sprite",
+                "count": 4
+            },
+            {
+                "name": "Cola",
+                "count": 6
+            },
+            {
+                "name": "Jever Pilsener",
+                "count": 4
+            },
+            {
+                "name": "Apfelschorle",
+                "count": 9
             },
             {
                 "name": "Wein",
@@ -51,20 +67,8 @@
         "tableNumber": 5,
         "items": [
             {
-                "name": "Cola",
-                "count": 2
-            },
-            {
-                "name": "Fanta",
-                "count": 2
-            },
-            {
-                "name": "Apfelschorle",
-                "count": 2
-            },
-            {
-                "name": "Wein",
-                "count": 2
+                "name": "Paulaner Weißbier",
+                "count": 1
             }
         ]
     },
@@ -74,11 +78,19 @@
         "tableNumber": 7,
         "items": [
             {
-                "name": "Cola",
+                "name": "Wasser ohne Gas",
+                "count": 3
+            },
+            {
+                "name": "Orangensaft",
                 "count": 2
             },
             {
-                "name": "Fanta",
+                "name": "Apfelschorle",
+                "count": 1
+            },
+            {
+                "name": "Früh Kösch",
                 "count": 2
             },
             {
@@ -86,8 +98,8 @@
                 "count": 2
             },
             {
-                "name": "Wein",
-                "count": 2
+                "name": "Kinderpuntsch",
+                "count": 1
             }
         ]
     },
@@ -102,14 +114,6 @@
             },
             {
                 "name": "Fanta",
-                "count": 2
-            },
-            {
-                "name": "Apfelschorle",
-                "count": 2
-            },
-            {
-                "name": "Wein",
                 "count": 2
             }
         ]

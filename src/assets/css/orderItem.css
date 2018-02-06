@@ -1,5 +1,72 @@
-.done-button {
-    height: 50px;
-    width: 50px;
-    cursor: pointer;
+.parent {
+    display: flex;
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.div-left {
+    width: 15%;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.div-center {
+    border-right: 1px solid black;
+    width: 70%;
+    background-color: #fff;
+    padding: 20px 20px 20px 40px;
+    position: relative;
+    font-size: 130%;
+    border-left: 1px solid black;
+}
+
+/* .div-center-left {
+    width: 5%;
+    background-color: #fff;
+    border-left: 1px solid black;
+    padding: 20px 30px 20px 40px;
+    font-size: 130%;
+} */
+
+.div-right {
+    width: 15%;
+    background-color: rgb(159, 223, 75);
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    position: relative;
+}
+
+.tableNumerValue {
+    background-color: #fff;
+}
+
+/* .orderDrink,
+.orderCount {
+    line-height: 1.5;
+    font-weight: bold;
+} */
+
+.tableNumerValue {
+    font-weight: bold;
+}
+
+.timestamp {
+    background-color: #fff;
+    position: absolute;
+    top: 22px;
+    right: 40px;
+}
+
+.check-icon {
+    font-size: 350%;
+    background-color: rgb(159, 223, 75);
+    position: absolute;
+    top: 50%;
+    margin-top: -32.5px;
+    left: 50%;
+    margin-left: -23px;
 }

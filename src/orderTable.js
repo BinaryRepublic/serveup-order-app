@@ -71,33 +71,32 @@ class OrderTable extends Component {
                     orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderError} order={order} history={this.props.history}/>);
                 }   
             } else {
-
                 if (order.status === 0) {
                     orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderFinished} order={order} history={this.props.history}/>);
                 } 
             }
         }
 
-        var tableNumberColumn;
-        if (!this.props.history) {
-            tableNumberColumn = <th> Tischnummer</th>
-        } 
+        // var tableNumberColumn;
+        // if (!this.props.history) {
+        //     tableNumberColumn = <div class="td"> Tischnummer</div>
+        // } 
 
         return (
             <div>
-                <button onClick={this.add}>Add New</button>
-                <table> 
-                    <tbody>                                    
-                        <tr>
-                            <th> Uhrzeit</th>
-                            {tableNumberColumn}
-                            <th> Getränk</th>
-                            <th> Anzahl</th>
-                            <th> </th>
-                        </tr>  
-                        {orderElements}
-                    </tbody>                                                  
-                </table>
+                <header>
+                    <nav>
+                        <div className="header">
+                            <div className="header-title">
+                                Order Queue
+                            </div>
+                            <i className="ion-navicon-round hamburger-icon" onClick={this.props.showNavigation}></i>
+                        </div>
+                    </nav>
+                </header>
+                <div className="container">
+                    {orderElements}
+                </div>
             </div>
         )
     }

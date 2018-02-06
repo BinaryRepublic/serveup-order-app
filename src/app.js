@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './assets/css/app.css';
 import OrderTable from './orderTable';
-import History from './history';
+// import History from './history';
+import NavigationBar from './navigationBar';
 import DataController from './DataController';
 import testdata from './test.json';
 const io = require('socket.io-client');
@@ -10,7 +11,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display:0,
+            display: 0,
             orders: testdata     
         }
         
@@ -23,12 +24,12 @@ class App extends Component {
         });
 
         this.showOrderTable = this.showOrderTable.bind(this);
-        this.showHistory = this.showHistory.bind(this);
+        this.showNavigation = this.showNavigation.bind(this);
     }
     showOrderTable() {
       this.setState({display:0});
     }
-    showHistory() {
+    showNavigation() {
         this.setState({display:1});
     }
 
@@ -36,20 +37,25 @@ class App extends Component {
         if(this.state.display === 0) {
             return (
                 <div>
-                    <button onClick={this.showHistory}>History</button>
-                    <OrderTable orders={this.state.orders}/>
+                    <OrderTable orders={this.state.orders} showNavigation={this.showNavigation} display={this.state.display}/>
                 </div>
             );
         } 
         else if(this.state.display === 1) {
-            let dataController = new DataController();
-            var tables = dataController.structureOrderData(this.state.orders);
+
             return (
-                <div>
-                    <button onClick={this.showOrderTable}>Order Table</button>
-                    <History tables={tables}/>
-                </div>
-            );
+                    <div>
+                        <NavigationBar showOrderTable={this.showOrderTable}/>
+                    </div>
+            )
+            // let dataController = new DataController();
+            // var tables = dataController.structureOrderData(this.state.orders);
+            // return (
+            //     <div>
+            //         <button onClick={this.showOrderTable}>Order Table</button>
+            //         <History tables={tables}/>
+            //     </div>
+            // );
         } 
         else {
             return (
