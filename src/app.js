@@ -5,7 +5,7 @@ import OrderTable from './orderTable';
 import NavigationBar from './navigationBar';
 import DataController from './DataController';
 import testdata from './test.json';
-import io from 'socket.io-client';
+const io = require('socket.io-client');
 
 class App extends Component {
     constructor(props) {
@@ -26,28 +26,27 @@ class App extends Component {
         this.showOrderTable = this.showOrderTable.bind(this);
         this.showNavigation = this.showNavigation.bind(this);
     }
-    showOrderTable() {
-      this.setState({display:0});
-    }
-    showNavigation() {
-        this.setState({display:1});
-    }
+
+    // showOrderTable() {
+    //   this.setState({display:0});
+    // }
+    // showNavigation() {
+    //     this.setState({display:1});
+    // }
 
     render() {
-        if(this.state.display === 0) {
-            return (
-                <div>
-                    <OrderTable orders={this.state.orders} showNavigation={this.showNavigation} display={this.state.display}/>
-                </div>
-            );
-        } 
-        else if(this.state.display === 1) {
 
             return (
+                <div className={showNavigation ? '' : '' }>
                     <div>
-                        <NavigationBar showOrderTable={this.showOrderTable}/>
+                        <OrderTable orders={this.state.orders} showNavigation={this.showNavigation} display={this.state.display}/>
                     </div>
-            )
+                    <div>
+                        {/* <NavigationBar showOrderTable={this.showOrderTable}/> */}
+                    </div>
+                </div>
+            ); 
+
             // let dataController = new DataController();
             // var tables = dataController.structureOrderData(this.state.orders);
             // return (
