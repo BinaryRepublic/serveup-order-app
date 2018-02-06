@@ -2,65 +2,63 @@ import React, { Component } from 'react';
 import './assets/css/app.css';
 import OrderTable from './orderTable';
 // import History from './history';
-import NavigationBar from './navigationBar';
+import SideBar from './sideBar';
 import DataController from './DataController';
 import testdata from './test.json';
+import NavigationBar from './navigationBar';
 const io = require('socket.io-client');
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display: 0,
+            showSideBar: false,
             orders: testdata     
         }
         
         const socket = io('http://138.68.71.39:9000');
         socket.on('connect', function(){
-            socket.emit("restaurantId", "abc123");
+            socket.emit("restaurantId", "b3ce8a59-5406-4cef-b1a5-b78b7d5ff0c6");
         });
         socket.on('neworder', function(order){
             console.log(order);
         });
 
-        this.showOrderTable = this.showOrderTable.bind(this);
-        this.showNavigation = this.showNavigation.bind(this);
+        this.switchToOrderTable = this.switchToOrderTable.bind(this);
+        this.switchToSideBar = this.switchToSideBar.bind(this);
     }
 
-    // showOrderTable() {
-    //   this.setState({display:0});
-    // }
-    // showNavigation() {
-    //     this.setState({display:1});
-    // }
+    switchToOrderTable() {
+      this.setState({showSideBar : false });
+    }
+    switchToSideBar() {
+        this.setState({showSideBar : true });
+    }
 
     render() {
 
-            return (
-                <div className={showNavigation ? '' : '' }>
-                    <div>
-                        <OrderTable orders={this.state.orders} showNavigation={this.showNavigation} display={this.state.display}/>
+        return (
+            <div className={this.state.showSideBar ? 'showSideBar' : '' }>
+                <NavigationBar switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>
+                <div className="wrapper">
+                    <div className="wrapper-SideBar">
+                        <SideBar/>
                     </div>
-                    <div>
-                        {/* <NavigationBar showOrderTable={this.showOrderTable}/> */}
+                    <div className="wrapper-OrderTable">
+                        <OrderTable orders={this.state.orders}/>
                     </div>
                 </div>
-            ); 
+            </div>
+        ); 
 
-            // let dataController = new DataController();
-            // var tables = dataController.structureOrderData(this.state.orders);
-            // return (
-            //     <div>
-            //         <button onClick={this.showOrderTable}>Order Table</button>
-            //         <History tables={tables}/>
-            //     </div>
-            // );
-        } 
-        else {
-            return (
-                <div></div>
-            );
-        }
+        // let dataController = new DataController();
+        // var tables = dataController.structureOrderData(this.state.orders);
+        // return (
+        //     <div>
+        //         <button onClick={this.showOrderTable}>Order Table</button>
+        //         <History tables={tables}/>
+        //     </div>
+        // );
     }
 }
 

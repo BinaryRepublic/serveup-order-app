@@ -8,7 +8,6 @@ class OrderTable extends Component {
         this.state = {
             orders: this.props.orders                                    
         }
-
         this.add = this.add.bind(this);
         this.orderFinished = this.orderFinished.bind(this);
         this.orderError = this.orderError.bind(this);
@@ -83,21 +82,9 @@ class OrderTable extends Component {
         // } 
 
         return (
-            <div>
-                <header>
-                    <nav>
-                        <div className="header">
-                            <div className="header-title">
-                                Order Queue
-                            </div>
-                            <i className="ion-navicon-round hamburger-icon" onClick={this.props.showNavigation}></i>
-                        </div>
-                    </nav>
-                </header>
                 <div className="container">
                     {orderElements}
                 </div>
-            </div>
         )
     }
 }
