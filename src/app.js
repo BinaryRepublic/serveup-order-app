@@ -5,7 +5,7 @@ import OrderTable from './orderTable';
 import NavigationBar from './navigationBar';
 import DataController from './DataController';
 import testdata from './test.json';
-const io = require('socket.io-client');
+import io from 'socket.io-client';
 
 class App extends Component {
     constructor(props) {
