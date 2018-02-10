@@ -3,7 +3,7 @@ import './assets/css/app.css';
 import OrderTable from './orderTable';
 // import History from './history';
 import SideBar from './sideBar';
-import DataController from './DataController';
+// import DataController from './DataController';
 import testdata from './test.json';
 import NavigationBar from './navigationBar';
 const io = require('socket.io-client');
