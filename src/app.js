@@ -13,15 +13,19 @@ class App extends Component {
         super(props);
         this.state = {
             showSideBar: false,
-            orders: testdata     
+            orders: testdata 
         }
-        
+        const that = this;
         const socket = io('http://138.68.71.39:9000');
         socket.on('connect', function(){
             socket.emit("restaurantId", "b3ce8a59-5406-4cef-b1a5-b78b7d5ff0c6");
         });
         socket.on('neworder', function(order){
             console.log(order);
+            order = JSON.parse(order);
+            var newState = that.state;
+            newState.orders.push(order);
+            that.setState(newState)
         });
 
         this.switchToOrderTable = this.switchToOrderTable.bind(this);
@@ -36,7 +40,7 @@ class App extends Component {
     }
 
     render() {
-
+        console.log(this.state.orders);
         return (
             <div className={this.state.showSideBar ? 'showSideBar' : '' }>
                 <NavigationBar switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>

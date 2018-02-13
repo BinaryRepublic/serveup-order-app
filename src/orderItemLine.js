@@ -12,7 +12,7 @@ class OrderItemLine extends Component {
     render () {
         var orderItemLine = [];
         for (var i = 0; i < this.state.order.items.length; i++) {
-            orderItemLine.push(<div className="orderDrinkLine" key={i}>{this.state.order.items[i].count} &nbsp; {this.state.order.items[i].name}</div>);
+            orderItemLine.push(<div className="orderDrinkLine" key={i}>{this.state.order.items[i].nb} &nbsp; {this.state.order.items[i].name}</div>);
         }
     
         return (

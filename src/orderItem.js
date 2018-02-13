@@ -7,13 +7,29 @@ class OrderItem extends Component {
         super(props);
         this.state = {
             order: props.order,
+            close: false,
         } 
     this.buttonClicked = this.buttonClicked.bind(this);
+    this.myEndFunction = this.myEndFunction.bind(this);
+
     }
 
-    buttonClicked () {
-        this.props.buttonClicked(this.state.order)
+
+    myEndFunction() {
+        this.props.buttonClicked(this.state.order);
     }
+   
+    buttonClicked (orderId) {
+        var x = document.querySelector(".parent[data-id='" + orderId + "']");
+        x.style.animation = "parent 0.2s";
+        x.addEventListener("animationend", this.myEndFunction);
+    }
+
+    // Code for Chrome, Safari and Opera
+    // x.addEventListener("webkitAnimationEnd", myEndFunction);
+
+    // Standard syntax
+    // x.addEventListener("animationend", myEndFunction);
 
     render () {
 
@@ -29,21 +45,35 @@ class OrderItem extends Component {
             tableNumberValue = <div className="tableNumerValue" >{this.state.order.tableNumber}</div>
         } 
 
+        var today = new Date(this.state.order.timestamp);
+        var h = today.getHours();
+        var m = today.getMinutes();
+
+        if(h<10) {
+            h = '0'+h
+        } 
+        if(m<10) {
+            m = '0'+m
+        } 
+        today = h + ':' + m;
+
         return (
-            <div className="parent">
-
-                <div className="div-left">
-                    {tableNumberValue}
+            
+            <div className={this.state.close ? 'closeOrderItem' : '' }>
+                <div className="parent" data-id={this.state.order.id}>
+                    <div className="div-left">
+                        {tableNumberValue}
+                    </div>
+                    <div className="div-center">
+                        <OrderItemLine order={this.state.order}/>
+                        <div className="timestamp">{today}</div>
+                    </div>
+                    <div className="div-right">
+                        <i className="ion-checkmark check-icon" onClick={this.buttonClicked.bind(this, this.state.order.id)}></i>
+                    </div>
                 </div>
-                <div className="div-center">
-                    <OrderItemLine order={this.state.order}/>
-                    <div className="timestamp">{this.state.order.timestamp} Uhr  </div>
-                </div>
-                <div className="div-right">
-                    <i className="ion-checkmark check-icon" onClick={this.buttonClicked.bind(this)}></i>
-                </div>
-
             </div>
+
             /* <div class="tr">
                 <div class="td">{this.state.order.timestamp} Uhr  </div>  
                 {tableNumberValue}     
@@ -51,6 +81,8 @@ class OrderItem extends Component {
                 <div class="td">{orderCount} </div>  
                 <div class="td orderbutton">{button}</div>
             </div>  */
+
+            // {this.state.order.timestamp} Uhr 
         ) 
     }
 }

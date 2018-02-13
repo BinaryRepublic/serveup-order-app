@@ -3,6 +3,18 @@
     border: 1px solid black;
     margin-top: 20px;
 }
+@keyframes parent {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+/* https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_animationstart eventlistener to keyframe funktion in JS, wenn das erreicht wurde, dann status auf 1 setzen, damit neu gerendert wird und die order rausfällt */
+
+/* .closeOrderItem .parent {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+} */
 
 .div-left {
     width: 15%;
@@ -68,5 +80,5 @@
     top: 50%;
     margin-top: -32.5px;
     left: 50%;
-    margin-left: -23px;
+    margin-left: -23px; 
 }
