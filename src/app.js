@@ -24,7 +24,8 @@ class App extends Component {
         else if(window.location.port == 82) {
             port = 9200;
         }
-        const socket = io('http://138.68.71.39:' + port);
+        let url = 'http://138.68.71.39:' + port;
+        const socket = io(url);
         socket.on('connect', function(){
             socket.emit("restaurantId", "b3ce8a59-5406-4cef-b1a5-b78b7d5ff0c6");
         });
