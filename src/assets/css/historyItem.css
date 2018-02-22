@@ -1,0 +1,11 @@
+.history-item {
+
+    font-size: 140%;
+    border-bottom: 1px solid black;
+    padding: 25px 0px 25px 20px;
+    position: relative;
+}
+
+.table-name {
+    padding-left: 20px;
+}

@@ -5,28 +5,37 @@ class DataController {
         for (var i = 0; i < data.length; i++) { 
             tablesNumbers.push(data[i].tableNumber)
         }
-
+        
         var uniqueTablesNumbers = [ ...new Set(tablesNumbers) ]; 
 
         var tables = [];
-        uniqueTablesNumbers.forEach(function(tableNumber) {
+        for (var y = 0; y < uniqueTablesNumbers.length; y++){
             var table = {
-                tableNumber: tableNumber,
+                tableNumber: uniqueTablesNumbers[y],
                 orders: []
             }
             tables.push(table);
-        }) 
+        }
+
+        // uniqueTablesNumbers.forEach(function(tableNumber) {
+        //     var table = {
+        //         tableNumber: tableNumber,
+        //         orders: []
+        //     }
+        //     console.log(tables)
+        //     tables.push(table);
+        // }) 
 
         var orderTableNumber;
         for (var x = 0; x < data.length; x++) {
-            for (var y = 0; y < tables.length; y++) {
-            orderTableNumber = data[x].tableNumber
-            if (orderTableNumber === tables[y].tableNumber) {
-                tables[y].orders.push(data[x])
-            } else {
+            for (var z = 0; z < tables.length; z++) {
+                orderTableNumber = data[x].tableNumber
+                if (orderTableNumber === tables[z].tableNumber) {
+                    tables[z].orders.push(data[x])
+                } else {
+                }
             }
-        }}
-        console.log(tables)
+        }
         return tables
     }
 }

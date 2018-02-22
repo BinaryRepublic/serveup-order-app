@@ -8,14 +8,6 @@
     to {opacity: 0;}
 }
 
-/* https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_animationstart eventlistener to keyframe funktion in JS, wenn das erreicht wurde, dann status auf 1 setzen, damit neu gerendert wird und die order rausfällt */
-
-/* .closeOrderItem .parent {
-    animation-name: example;
-    animation-duration: 4s;
-    animation-iteration-count: 1;
-} */
-
 .div-left {
     width: 15%;
     background-color: #fff;

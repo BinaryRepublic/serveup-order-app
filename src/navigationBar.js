@@ -5,7 +5,7 @@ class NavigationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-                                                
+            
         }
         this.onClick = this.onClick.bind(this);
     }
@@ -18,19 +18,17 @@ class NavigationBar extends Component {
         }
     }
     render () {
-
-        var showSideBarHeading;
+        var showDifferentHeading;
         if(this.props.showSideBar){
-            showSideBarHeading = <div className="header-title-nav">Navigation</div>
-        }
-
+            showDifferentHeading = <div className="header-title-nav">{this.state.history ? 'History' : 'Navigation'}</div>
+        } 
         return (
             <nav>
                 <div className="header">
                     <div className="header-title-main">
                         Order Queue
                     </div>
-                    {showSideBarHeading}
+                    {showDifferentHeading}
                     <i className="ion-navicon-round hamburger-icon" onClick={this.onClick}></i>
                 </div>
             </nav>

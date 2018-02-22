@@ -12,7 +12,6 @@
   }
   
   .header-title-main {
-    background-color: rgb(209, 155, 74);
     font-size: 220%;
     font-weight: bold;
     position: relative;
@@ -23,7 +22,6 @@
   }
 
   .header-title-nav {
-    background-color: rgb(209, 155, 74);
     font-size: 220%;
     font-weight: bold;
     position: absolute;
@@ -32,7 +30,6 @@
   }
   
   .hamburger-icon {
-    background-color: rgb(209, 155, 74);
     width: 5%;
     font-size: 320%;
     position: absolute;

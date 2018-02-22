@@ -1,0 +1,51 @@
+.container-history {
+    background-color: #fff;
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-history-items {
+    margin-top: 72px;
+    display:flex;
+    background-color: #fff;
+    flex-direction: column;
+}
+
+.history-header-back {
+    position: relative;
+    position: fixed;
+    z-index: 2;
+    background-color: #fff;
+    width: 30%;
+}
+
+.history-table-header-back {
+    position: relative;
+    position: fixed;
+    z-index: 2;
+    background-color: #fff;
+    width: 30%;
+}
+
+.table-number {
+    padding: 20px 0px 20px 90px;
+    font-size: 250%;
+    border-bottom: 1px solid black;
+}
+
+.back-icon {
+    font-size: 350%;
+    margin-top: 80px;
+    margin-left: 60px;
+    color: black;
+    position: absolute;
+    top: -69px;
+    left: -10px;
+}
+
+.margin-top {
+    margin-top: 89px;
+}
+
+

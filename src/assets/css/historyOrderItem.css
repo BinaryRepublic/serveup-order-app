@@ -1,0 +1,26 @@
+.history-order-item {
+    font-size: 140%;
+    border-bottom: 1px solid black;
+    padding: 15px 20px 15px 40px;
+    color: black;
+    position: relative;
+}
+
+.order-time {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.icon-error {
+    color:red;
+    padding: 10px 20px;
+    border: 1px solid red;
+    position: absolute;
+    margin-left: 280px;
+    top: 50%;
+    margin-top: -25px;
+}
+
+.order-error-color {
+    background-color: gray;
+}
