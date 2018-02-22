@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './assets/css/orderItem.css';
 import OrderItemLine from './orderItemLine';
+import HttpHelper from './library/httpHelper';
 
 class OrderItem extends Component {
     constructor(props) {
@@ -14,7 +15,6 @@ class OrderItem extends Component {
 
     }
 
-
     myEndFunction() {
         this.props.buttonClicked(this.state.order);
     }
@@ -23,13 +23,9 @@ class OrderItem extends Component {
         var x = document.querySelector(".parent[data-id='" + orderId + "']");
         x.style.animation = "parent 0.2s";
         x.addEventListener("animationend", this.myEndFunction);
+        var http = new HttpHelper();
+        http.updateOrderStatus(orderId, 1)
     }
-
-    // Code for Chrome, Safari and Opera
-    // x.addEventListener("webkitAnimationEnd", myEndFunction);
-
-    // Standard syntax
-    // x.addEventListener("animationend", myEndFunction);
 
     render () {
 
@@ -58,7 +54,6 @@ class OrderItem extends Component {
         today = h + ':' + m;
 
         return (
-            
             <div className={this.state.close ? 'closeOrderItem' : '' }>
                 <div className="parent" data-id={this.state.order.id}>
                     <div className="div-left">
@@ -68,21 +63,11 @@ class OrderItem extends Component {
                         <OrderItemLine order={this.state.order}/>
                         <div className="timestamp">{today}</div>
                     </div>
-                    <div className="div-right">
-                        <i className="ion-checkmark check-icon" onClick={this.buttonClicked.bind(this, this.state.order.id)}></i>
+                    <div className="div-right" onClick={this.buttonClicked.bind(this, this.state.order.id)}>
+                        <i className="ion-checkmark check-icon"></i>
                     </div>
                 </div>
             </div>
-
-            /* <div class="tr">
-                <div class="td">{this.state.order.timestamp} Uhr  </div>  
-                {tableNumberValue}     
-                <div class="td order">{orderDrink}</div>    
-                <div class="td">{orderCount} </div>  
-                <div class="td orderbutton">{button}</div>
-            </div>  */
-
-            // {this.state.order.timestamp} Uhr 
         ) 
     }
 }
