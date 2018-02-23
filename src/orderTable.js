@@ -11,7 +11,6 @@ class OrderTable extends Component {
     orderFinished (order) {
         order.status = 1;
         this.forceUpdate()
-        console.log(order.status)
     }
 
     render () {

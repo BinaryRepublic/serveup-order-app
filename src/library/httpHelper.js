@@ -18,16 +18,19 @@ class HttpHelper {
         return result;
     }
 
-    
     getOrders(status) {
         return new Promise((resolve, reject) => {
-            axios.get('http://138.68.71.39:3000/order?restaurant-id=' + this.restaurantId + '&status=' + status)
-            .then(function (response) {
-                resolve(response.data);
-            })
-            .catch(function (error) {
-                reject(error);
-            });
+            if (this.restaurantId) {
+                axios.get('http://138.68.71.39:3000/order?restaurant-id=' + this.restaurantId + '&status=' + status)
+                .then(function (response) {
+                    resolve(response.data);
+                })
+                .catch(function (error) {
+                    reject(error);
+                });
+            } else {
+                reject('no restaurant-id given');
+            }
         });
     }
 
@@ -45,7 +48,6 @@ class HttpHelper {
             });
         });
     }
-
 }
 
 module.exports = HttpHelper;

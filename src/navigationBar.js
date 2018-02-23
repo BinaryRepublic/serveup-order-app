@@ -4,9 +4,6 @@ import './assets/css/navigationBar.css';
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        }
         this.onClick = this.onClick.bind(this);
     }
    
@@ -18,9 +15,9 @@ class NavigationBar extends Component {
         }
     }
     render () {
-        var showDifferentHeading;
+        var showNavigationHeading;
         if(this.props.showSideBar){
-            showDifferentHeading = <div className="header-title-nav">{this.state.history ? 'History' : 'Navigation'}</div>
+            showNavigationHeading = <div className="header-sidebar-title">Navigation</div>
         } 
         return (
             <nav>
@@ -28,7 +25,7 @@ class NavigationBar extends Component {
                     <div className="header-title-main">
                         Order Queue
                     </div>
-                    {showDifferentHeading}
+                    {showNavigationHeading}
                     <i className="ion-navicon-round hamburger-icon" onClick={this.onClick}></i>
                 </div>
             </nav>

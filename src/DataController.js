@@ -17,15 +17,6 @@ class DataController {
             tables.push(table);
         }
 
-        // uniqueTablesNumbers.forEach(function(tableNumber) {
-        //     var table = {
-        //         tableNumber: tableNumber,
-        //         orders: []
-        //     }
-        //     console.log(tables)
-        //     tables.push(table);
-        // }) 
-
         var orderTableNumber;
         for (var x = 0; x < data.length; x++) {
             for (var z = 0; z < tables.length; z++) {

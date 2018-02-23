@@ -10,7 +10,6 @@ class SideBar extends Component {
     }
 
     render() {
-
         if (this.props.history === true) {
             var tables = []
             tables = this.dataController.structureOrderData(this.props.orders.slice());
@@ -71,8 +70,7 @@ class SideBar extends Component {
                     </div>
                 </div>
             )
-        }
-               
+        }      
     }
 }
 

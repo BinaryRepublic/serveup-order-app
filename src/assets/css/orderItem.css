@@ -27,14 +27,6 @@
     border-left: 1px solid black;
 }
 
-/* .div-center-left {
-    width: 5%;
-    background-color: #fff;
-    border-left: 1px solid black;
-    padding: 20px 30px 20px 40px;
-    font-size: 130%;
-} */
-
 .div-right {
     width: 15%;
     background-color: rgb(159, 223, 75);
@@ -47,12 +39,6 @@
 .tableNumerValue {
     background-color: #fff;
 }
-
-/* .orderDrink,
-.orderCount {
-    line-height: 1.5;
-    font-weight: bold;
-} */
 
 .tableNumerValue {
     font-weight: bold;

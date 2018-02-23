@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import './assets/css/historyItem.css';
+import './assets/css/historyTableItem.css';
 
-class HistoryItem extends Component {
+class HistoryTableItem extends Component {
 
     render () {
         return(
             <div className="history-item" key={this.props.table.tableNumber} onClick={this.props.selectTable.bind(this, this.props.table)}>
                 <p className="table-name">
-                Table {this.props.table.tableNumber}
+                    Table {this.props.table.tableNumber}
                 </p>
             </div>
         )
     }   
 }
 
-export default HistoryItem;
+export default HistoryTableItem;
 

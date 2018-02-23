@@ -8,11 +8,10 @@ class OrderItem extends Component {
         super(props);
         this.state = {
             order: props.order,
-            close: false,
+            close: false
         } 
-    this.buttonClicked = this.buttonClicked.bind(this);
     this.myEndFunction = this.myEndFunction.bind(this);
-
+    this.buttonClicked = this.buttonClicked.bind(this);
     }
 
     myEndFunction() {
@@ -24,17 +23,10 @@ class OrderItem extends Component {
         x.style.animation = "parent 0.2s";
         x.addEventListener("animationend", this.myEndFunction);
         var http = new HttpHelper();
-        http.updateOrderStatus(orderId, 1)
+        http.updateOrderStatus(orderId, 1);
     }
 
     render () {
-
-        // var orderDrink = [];
-        // var orderCount = [];
-        // for (var i = 0; i < this.state.order.items.length; i++) {
-        //     orderDrink.push(<div className="orderDrink" key={i}>{this.state.order.items[i].name} </div>);
-        //     orderCount.push(<div className="orderCount" key={i}>{this.state.order.items[i].count}</div>);
-        // }
 
         var tableNumberValue;
         if (!this.props.history) {
@@ -61,7 +53,9 @@ class OrderItem extends Component {
                     </div>
                     <div className="div-center">
                         <OrderItemLine order={this.state.order}/>
-                        <div className="timestamp">{today}</div>
+                        <div className="timestamp">
+                            {today}
+                        </div>
                     </div>
                     <div className="div-right" onClick={this.buttonClicked.bind(this, this.state.order.id)}>
                         <i className="ion-checkmark check-icon"></i>

@@ -12,7 +12,7 @@
     flex-direction: column;
 }
 
-.history-header-back {
+.history-header-back-feed {
     position: relative;
     position: fixed;
     z-index: 2;
@@ -20,7 +20,7 @@
     width: 30%;
 }
 
-.history-table-header-back {
+.history-header-back-table {
     position: relative;
     position: fixed;
     z-index: 2;
@@ -28,23 +28,23 @@
     width: 30%;
 }
 
-.table-number {
-    padding: 20px 0px 20px 90px;
-    font-size: 250%;
-    border-bottom: 1px solid black;
-}
-
-.back-icon {
+.icon-back {
     font-size: 350%;
     margin-top: 80px;
-    margin-left: 60px;
+    margin-left: 57px;
     color: black;
     position: absolute;
     top: -69px;
     left: -10px;
 }
 
-.margin-top {
+.history-header-title {
+    padding: 20px 0px 20px 90px;
+    font-size: 250%;
+    border-bottom: 1px solid black;
+}
+
+.history-order-items {
     margin-top: 89px;
 }
 

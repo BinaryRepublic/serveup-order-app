@@ -20,7 +20,7 @@ class HistoryOrderItem extends Component {
         var historyOrderItemLine = [];
         for (var i = 0; i < this.props.order.items.length; i++) 
         {
-            historyOrderItemLine.push(<div key={i}>{this.props.order.items[i].count} &nbsp; {this.props.order.items[i].name}</div>);
+            historyOrderItemLine.push(<div key={i}>{this.props.order.items[i].nb} &nbsp; {this.props.order.items[i].name}</div>);
         }
     
         return (

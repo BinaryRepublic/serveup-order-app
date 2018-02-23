@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './assets/css/app.css';
 import OrderTable from './orderTable';
 import SideBar from './sideBar';
-import testdata from './test.json';
 import NavigationBar from './navigationBar';
 import HttpHelper from './library/httpHelper';
 const io = require('socket.io-client');
@@ -12,33 +11,41 @@ class App extends Component {
         super(props);
         this.state = {
             showSideBar: false,
-            orders: testdata,
+            orders: [],
             history: false
         }
+
         const that = this;
         // Should be implemented with ENV variable in future releases
         var port = 9000;
-        if(window.location.port == 81) {
+        if(window.location.port === 81) {
             port = 9100;
         }
-        else if(window.location.port == 82) {
+        else if(window.location.port === 82 || window.location.port === 3000) {
             port = 9200;
         }
         let url = 'http://138.68.71.39:' + port;
         const socket = io(url);
         socket.on('connect', function(){
-            socket.emit("restaurantId", "b3ce8a59-5406-4cef-b1a5-b78b7d5ff0c6");
+            socket.emit("restaurantId", "195d4792-e771-4d0b-8b45-df96a2965f2f");
         });
         socket.on('neworder', function(order){
             console.log(order);
             order = JSON.parse(order);
+            order.tableNumber = Math.floor(Math.random() * 10)
             var newState = that.state;
             newState.orders.push(order);
             that.setState(newState)
         });
         var http = new HttpHelper();
         http.getOrders(0).then(result => {
-            that.setState({orders: result})
+            if (result) {
+                for(var r = 0; r < result.length; r++) {
+                    var order = result[r];
+                    order.tableNumber = Math.floor(Math.random() * 10)
+                }
+                that.setState({orders: result})
+            }
         }).catch(err => {
             console.log(err);
         });
@@ -50,23 +57,22 @@ class App extends Component {
 
     switchToOrderTable() {
       this.setState({showSideBar : false });
-      console.log(this.state.history)
     }
     switchToSideBar() {
         this.setState({history: false});
         this.setState({showSideBar : true });
     }
     changeToHistory() {
-        this.setState({history: true})
+        this.setState({history: true});
     }
     changeToSideBar() {
-        this.setState({history: false})
+        this.setState({history: false});
     }
 
     render() {
         return (
             <div className={this.state.showSideBar ? 'showSideBar' : '' }>
-                <NavigationBar switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar} history={this.state.history}/>
+                <NavigationBar history={this.state.history} switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>
                 <div className="wrapper">
                     <div className="wrapper-SideBar">
                         <SideBar orders={this.state.orders} history={this.state.history} changeToHistory={this.changeToHistory} changeToSideBar={this.changeToSideBar}/>
