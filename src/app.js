@@ -18,16 +18,21 @@ class App extends Component {
         const that = this;
         // Should be implemented with ENV variable in future releases
         var port = 9000;
-        if(window.location.port === 81) {
+
+        if(window.location.port == 81) {
             port = 9100;
         }
-        else if(window.location.port === 82 || window.location.port === 3000) {
+        else if(window.location.port == 82 || window.location.port == 3000) {
             port = 9200;
         }
+
         let url = 'http://138.68.71.39:' + port;
         const socket = io(url);
         socket.on('connect', function(){
-            socket.emit("restaurantId", "195d4792-e771-4d0b-8b45-df96a2965f2f");
+            let restaurantId = http.findGetParameter("restaurant-id");
+            if (restaurantId) {
+                socket.emit("restaurantId", restaurantId);
+            }
         });
         socket.on('neworder', function(order){
             console.log(order);
