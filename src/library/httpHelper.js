@@ -18,10 +18,10 @@ class HttpHelper {
         return result;
     }
 
-    getOrders(status) {
+    getOrders(status, serverPort) {
         return new Promise((resolve, reject) => {
             if (this.restaurantId) {
-                axios.get('http://138.68.71.39:3000/order?restaurant-id=' + this.restaurantId + '&status=' + status)
+                axios.get('http://138.68.71.39:' + serverPort + '/order?restaurant-id=' + this.restaurantId + '&status=' + status)
                 .then(function (response) {
                     resolve(response.data);
                 })

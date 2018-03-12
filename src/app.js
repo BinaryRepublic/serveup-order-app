@@ -43,7 +43,7 @@ class App extends Component {
             that.setState(newState)
         });
         var http = new HttpHelper();
-        http.getOrders(0).then(result => {
+        http.getOrders(0, port).then(result => {
             if (result) {
                 for(var r = 0; r < result.length; r++) {
                     var order = result[r];
