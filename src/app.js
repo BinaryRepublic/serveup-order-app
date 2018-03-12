@@ -13,20 +13,27 @@ class App extends Component {
             showSideBar: false,
             orders: [],
             history: false
-        }
-
+        };
         const that = this;
-        // Should be implemented with ENV variable in future releases
-        var port = 9000;
 
+        // -- init ports
+        // -- should be dependent on ENV-Variables later!
+        // PROD
+        let orderApiPort = 3000;
+        let orderWorkerPort = 9000;
+
+        // STAGE
         if(window.location.port == 81) {
-            port = 9100;
+            orderApiPort = 3100;
+            orderWorkerPort = 9100;
         }
+        // DEV
         else if(window.location.port == 82 || window.location.port == 3000) {
-            port = 9200;
+            orderApiPort = 3200;
+            orderWorkerPort = 9200;
         }
 
-        let url = 'http://138.68.71.39:' + port;
+        let url = 'http://138.68.71.39:' + orderWorkerPort;
         const socket = io(url);
         socket.on('connect', function(){
             let restaurantId = http.findGetParameter("restaurant-id");
@@ -43,7 +50,7 @@ class App extends Component {
             that.setState(newState)
         });
         var http = new HttpHelper();
-        http.getOrders(0, port).then(result => {
+        http.getOrders(0, orderApiPort).then(result => {
             if (result) {
                 for(var r = 0; r < result.length; r++) {
                     var order = result[r];
