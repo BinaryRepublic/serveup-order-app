@@ -15,6 +15,7 @@
     font-size: 220%;
     font-weight: bold;
     position: relative;
+    color: rgb(19, 24, 40);
   }
   
   .showSideBar .header-title-main {
@@ -27,6 +28,7 @@
     position: absolute;
     top: 15px;
     left: 120px;
+    color: rgb(19, 24, 40);
   }
   
   .hamburger-icon {
@@ -35,6 +37,7 @@
     position: absolute;
     top: 4.5px;
     left: 27px;
+    color: rgb(19, 24, 40);
   }
   
   
