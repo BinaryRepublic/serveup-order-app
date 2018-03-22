@@ -51,12 +51,16 @@ class OrderItem extends Component {
                     <div className="div-left">
                         {tableNumberValue}
                     </div>
+
                     <div className="div-center">
+                        
                         <OrderItemLine order={this.state.order}/>
+
                         <div className="timestamp">
                             {today}
                         </div>
                     </div>
+
                     <div className="div-right" onClick={this.buttonClicked.bind(this, this.state.order.id)}>
                         <i className="ion-checkmark check-icon"></i>
                     </div>
