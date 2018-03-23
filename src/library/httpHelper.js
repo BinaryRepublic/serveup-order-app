@@ -33,7 +33,7 @@ class HttpHelper {
         for (let key in params) {
             queryStr += key + '=' + params[key] + "&";
         }
-        queryStr = queryStr.split(0, -1);
+        queryStr.split(0, -1);
         return queryStr;
     }
 
