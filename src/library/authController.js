@@ -1,22 +1,25 @@
 import axios from 'axios';
-import AuthStore from './AuthStore';
+import AuthStore from './authStore';
+import HttpHelper from './httpHelper';
 
-class LoginController {
+
+class AuthController {
     constructor (requestToken = false, realmHelper) {
-        this.axios = axios.create({
+        this.authApi = axios.create({
             baseURL: 'http://138.68.71.39:2200'
         });
         this.config = {
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         };
-        this.realmHelper = realmHelper;
         this.authStore = new AuthStore();
     };
     requestGrant (mail, password) {
+        let orderApi = new HttpHelper('http://138.68.71.39:3200')
         let that = this;
-        this.realmHelper.post('login', {mail: mail, password: password})
+        orderApi.post('/login', {mail: mail, password: password})
             .catch(function (error) {
                 console.error(error);
             })
@@ -28,7 +31,7 @@ class LoginController {
     };
     requestToken (grant, accountId) {
         let that = this;
-        this.axios.post('/access/grant', {
+        this.authApi.post('/access/grant', {
             grant: grant
         }, this.config)
             .then(function (response) {
@@ -39,26 +42,31 @@ class LoginController {
             });
     }
     refreshToken () {
-        let refreshToken = this.authStore.refreshToken();
-        if (refreshToken) {
-            let that = this;
-            this.axios.post('/access/refresh', {
-                refreshToken: refreshToken
-            }, this.config)
+        return new Promise((resolve, reject) => {
+            let refreshToken = this.authStore.refreshToken();
+            if (refreshToken) {
+                let that = this;
+                this.authApi.post('/access/refresh', {
+                    refreshToken: refreshToken
+                }, this.config)
                 .then(function (response) {
                     if (response) {
                         let accountId = that.authStore.accountId;
                         that.handleTokenResponse(response, accountId);
+                        resolve();
                     } else {
                         console.error('NO RESPONSE');
+                        reject();
                     }
                 })
                 .catch(function (error) {
                     console.log(error);
+                    reject(error);
                 });
-        } else {
-            console.error('NO REFRESH TOKEN');
-        }
+            } else {
+                console.error('NO REFRESH TOKEN');
+            }
+        });
     }
     handleTokenResponse (response, accountId) {
         if (response.data) {
@@ -68,7 +76,6 @@ class LoginController {
             if (accessToken && refreshToken && expire) {
                 this.authStore.saveAuth(accountId, accessToken, refreshToken, expire);
                 console.log('UPDATED AUTH DATA');
-                window.location.reload();
             } else {
                 console.error('MISSING TOKEN DATA');
             }
@@ -77,4 +84,4 @@ class LoginController {
         }
     }
 }
-export default LoginController;
+export default AuthController;
