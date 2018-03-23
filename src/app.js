@@ -55,7 +55,7 @@ class App extends Component {
         });
 
         // load orders
-        let orderApiHelper = OrderApiHelper('http://138.68.71.39:' + orderApiPort);
+        let orderApiHelper = new OrderApiHelper('http://138.68.71.39:' + orderApiPort);
         orderApiHelper.getOrders(0, orderApiPort).then(result => {
             if (result) {
                 for(var r = 0; r < result.length; r++) {

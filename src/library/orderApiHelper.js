@@ -43,4 +43,4 @@ class OrderApiHelper {
         });
     }
 }
-module.exports = OrderApiHelper;
+export default OrderApiHelper;

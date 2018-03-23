@@ -88,4 +88,4 @@ class HttpHelper {
     }
 }
 
-module.exports = HttpHelper;
+export default HttpHelper;
