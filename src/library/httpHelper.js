@@ -28,9 +28,17 @@ class HttpHelper {
         }
         return result;
     }
+    buildQuery (params) {
+        let queryStr = '?';
+        for (let key in params) {
+            queryStr += key + '=' + params[key] + "&";
+        }
+        queryStr = queryStr.split(0, -1);
+        return queryStr;
+    }
 
     authenticationHeader () {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if (this.authStore.authAvailable()) {
                 if (this.authStore.isExpired()) {
                     this.authController.refreshToken().then(res => {
@@ -38,7 +46,7 @@ class HttpHelper {
                         this.config.headers['Access-Token'] = token;
                         resolve();
                     }).catch(err => {
-                        reject(err);
+                        console.log(err);
                     });
                 } else {
                     let token = this.authStore.accessToken();
@@ -46,9 +54,11 @@ class HttpHelper {
                         this.config.headers['Access-Token'] = token;
                         resolve();
                     } else {
-                        reject('NO TOKEN IN AUTH DATA');
+                        console.log('NO TOKEN IN AUTH DATA');
                     }
                 }
+            } else {
+                resolve();
             }
         });
     }
@@ -56,21 +66,18 @@ class HttpHelper {
         const that = this;
         return new Promise((resolve, reject) => {
             that.authenticationHeader().then(() => {
-                that.http.get(path, params, that.config)
+                that.http.get(path + that.buildQuery(params), that.config)
                 .then(function (response) {
-                    let result = that.encode(response);
-                    if (result.status === 200) {
-                        resolve(result.data);
+                    let result = response.data;
+                    if (response.status === 200) {
+                        resolve(result);
                     } else {
                         reject(result);
                     }
-                })
-                .catch(function (error) {
-                    reject(error);
                 });
             }).catch((err) => {
                 console.log(err)
-            }); 
+            });
         });
     }
     post (path, params = {}) {
@@ -78,20 +85,18 @@ class HttpHelper {
         return new Promise((resolve, reject) => {
             that.authenticationHeader().then(() => {
                 that.http.post(path, params, that.config)
-                    .then(function (response) {
-                        let result = that.encode(response);
-                        if (result.status === 200) {
-                            resolve(result.data);
-                        } else {
-                            reject(result);
-                        }
-                    }).catch(error => {
-                    alert('Error: ' + error.response.data.error.msg);
+                .then(function (response) {
+                    let result = response.data;
+                    if (response.status === 200) {
+                        resolve(result);
+                    } else {
+                        reject(result);
+                    }
+                }).catch(error => {
+                    console.log(error);
                     reject(error);
                 });
-            }).catch((err) => {
-                console.log(err)
-            }); 
+            });
         });
     }
     put (path, params = {}) {
@@ -100,19 +105,17 @@ class HttpHelper {
             that.authenticationHeader().then(() => {
                 that.http.put(path, params, that.config)
                     .then(function (response) {
-                        let result = that.encode(response);
-                        if (result.status === 200) {
-                            resolve(result.data);
+                        let result = response.data;
+                        if (response.status === 200) {
+                            resolve(result);
                         } else {
                             reject(result);
                         }
                     }).catch(error => {
-                    alert('Error: ' + error.response.data.error.msg);
+                    console.log(error);
                     reject(error);
                 });
-            }).catch((err) => {
-                console.log(err)
-            }); 
+            });
         });
     }
     delete (path, params = {}) {
@@ -121,19 +124,17 @@ class HttpHelper {
             that.authenticationHeader().then(() => {
                 that.http.delete(path, params, that.config)
                     .then(function (response) {
-                        let result = that.encode(response);
-                        if (result.status === 200) {
-                            resolve(result.data);
+                        let result = response.data;
+                        if (response.status === 200) {
+                            resolve(result);
                         } else {
                             reject(result);
                         }
                     }).catch(error => {
-                    alert('Error: ' + error.response.data.error.msg);
+                    console.log(error);
                     reject(error);
                 });
-            }).catch((err) => {
-                console.log(err)
-            }); 
+            });
         });
     }
 }

@@ -17,29 +17,40 @@ class AuthController {
         this.authStore = new AuthStore();
     };
     requestGrant (mail, password) {
-        let orderApi = new HttpHelper('http://138.68.71.39:3200')
         let that = this;
-        orderApi.post('/login', {mail: mail, password: password})
-            .catch(function (error) {
-                console.error(error);
-            })
+        return new Promise((resolve, reject) => {
+            that.authStore.removeAuth();
+            let orderApi = new HttpHelper('http://138.68.71.39:3200');
+            orderApi.post('/login', {mail: mail, password: password})
             .then(data => {
                 if (data && data.grant && data.accountId) {
-                    that.requestToken(data.grant, data.accountId);
+                    that.requestToken(data.grant, data.accountId).then(() => {
+                        resolve();
+                    }).catch(() => {
+                        reject();
+                    });
                 }
+            })
+            .catch(function (error) {
+                console.error(error);
             });
+        });
     };
     requestToken (grant, accountId) {
         let that = this;
-        this.authApi.post('/access/grant', {
-            grant: grant
-        }, this.config)
+        return new Promise((resolve, reject) => {
+            that.authApi.post('/access/grant', {
+                grant: grant
+            }, this.config)
             .then(function (response) {
                 that.handleTokenResponse(response, accountId);
+                resolve();
             })
             .catch(function (error) {
                 console.log(error);
+                reject();
             });
+        });
     }
     refreshToken () {
         return new Promise((resolve, reject) => {

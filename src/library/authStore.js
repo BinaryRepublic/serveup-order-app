@@ -34,6 +34,9 @@ class AuthStore {
             return undefined;
         }
     }
+    removeAuth () {
+        localStorage.removeItem(this.storageKey);
+    }
     accessToken () {
         let auth = this.loadAuth();
         if (auth && auth.accessToken) {
