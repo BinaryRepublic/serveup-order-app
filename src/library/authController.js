@@ -94,5 +94,17 @@ class AuthController {
             console.error('NO TOKEN DATA');
         }
     }
+    deleteAuthentication (accessToken) {
+        let that = this;
+        return new Promise((resolve, reject) => {
+            that.authStore.removeAuth();
+            let orderApi = new HttpHelper('http://138.68.71.39:3200');
+            orderApi.post('/logout', {accessToken: accessToken})
+            .then(window.location.reload)
+            .catch(function (error) {
+                console.error(error);
+            });
+        });
+    };
 }
 export default AuthController;

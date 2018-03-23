@@ -93,7 +93,7 @@ class HttpHelper {
                         reject(result);
                     }
                 }).catch(error => {
-                    console.log(error);
+                    alert("Credentials invalid");
                     reject(error);
                 });
             });
