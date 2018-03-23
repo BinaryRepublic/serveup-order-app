@@ -16,7 +16,7 @@ class Login extends Component {
         this.http = new HttpHelper('http://138.68.71.39:4200');
 
         this.state = {
-            login: !(this.authStore.isExpired())
+            login: (this.authStore.accessToken())
         };
 
         this.login = this.login.bind(this);

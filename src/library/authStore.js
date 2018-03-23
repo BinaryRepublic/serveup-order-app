@@ -63,12 +63,14 @@ class AuthStore {
     }
     isExpired () {
         let auth = this.loadAuth();
-        let now = Date.now();
-        let expireDate = new Date(auth.expire).getTime();
-        if (expireDate <= now) {
-            return true;
-        } else {
-            return false;
+        if (auth && auth.expire) {
+            let now = Date.now();
+            let expireDate = new Date(auth.expire).getTime();
+            if (expireDate <= now) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
