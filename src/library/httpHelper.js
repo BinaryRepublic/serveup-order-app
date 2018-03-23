@@ -1,49 +1,87 @@
-var axios = require('axios');
+import axios from 'axios'
 
 class HttpHelper {
-    constructor(restaurantId = false) {
-        if(!restaurantId) {
-            restaurantId = this.findGetParameter("restaurant-id")
-        }
-        this.restaurantId = restaurantId;
+    constructor(baseUrl = '') {
+        this.http = axios.create({
+            baseURL: baseUrl
+        });
     }
-    findGetParameter(parameterName) {
-        var result = null,
+    findGetParameter (parameterName) {
+        let result = null,
             tmp = [];
-        var items = window.location.search.substr(1).split("&");
-        for (var index = 0; index < items.length; index++) {
+        let items = window.location.search.substr(1).split("&");
+        for (let index = 0; index < items.length; index++) {
             tmp = items[index].split("=");
             if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         }
         return result;
     }
-
-    getOrders(status, serverPort) {
+    get (path, params) {
+        const that = this;
         return new Promise((resolve, reject) => {
-            if (this.restaurantId) {
-                axios.get('http://138.68.71.39:' + serverPort + '/order/restaurant?restaurant-id=' + this.restaurantId + '&status=' + status)
+            let getCfg = that.config;
+            getCfg.params = params;
+            this.http.get(path, getCfg)
                 .then(function (response) {
-                    resolve(response.data);
+                    let result = that.encode(response);
+                    if (result.status === 200) {
+                        resolve(result.data);
+                    } else {
+                        reject(result);
+                    }
                 })
                 .catch(function (error) {
                     reject(error);
                 });
-            } else {
-                reject('no restaurant-id given');
-            }
         });
     }
-
-    updateOrderStatus(id, status) {
+    post (path, params = {}) {
+        const that = this;
         return new Promise((resolve, reject) => {
-            axios.put('http://138.68.71.39:3000/order/status', {
-                id: id,
-                status: status 
-            })
-            .then(function (response) {
-                resolve(response.data);
-            })
-            .catch(function (error) {
+            axios.post(path, params, that.config)
+                .then(function (response) {
+                    let result = that.encode(response);
+                    if (result.status === 200) {
+                        resolve(result.data);
+                    } else {
+                        reject(result);
+                    }
+                }).catch(error => {
+                alert('Error: ' + error.response.data.error.msg);
+                reject(error);
+            });
+        });
+    }
+    put (path, params = {}) {
+        const that = this;
+        return new Promise((resolve, reject) => {
+            that.http.put(path, params, that.config)
+                .then(function (response) {
+                    let result = that.encode(response);
+                    if (result.status === 200) {
+                        resolve(result.data);
+                    } else {
+                        reject(result);
+                    }
+                }).catch(error => {
+                alert('Error: ' + error.response.data.error.msg);
+                reject(error);
+            });
+        });
+    }
+    delete (path, params = {}) {
+        const that = this;
+        return new Promise((resolve, reject) => {
+            that.http.delete(path, params, that.config)
+                .then(function (response) {
+                    let result = that.encode(response);
+                    if (result.status === 200) {
+                        resolve(result.data);
+                    } else {
+                        reject(result);
+                    }
+                }).catch(error => {
+                alert('Error: ' + error.response.data.error.msg);
                 reject(error);
             });
         });

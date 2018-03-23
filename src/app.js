@@ -3,7 +3,9 @@ import './assets/css/app.css';
 import OrderTable from './orderTable';
 import SideBar from './sideBar';
 import NavigationBar from './navigationBar';
-import HttpHelper from './library/httpHelper';
+import HttpHelper from './library/httpHelper'
+import OrderApiHelper from './library/orderApiHelper'
+import Login from "./login";
 const io = require('socket.io-client');
 
 class App extends Component {
@@ -21,7 +23,6 @@ class App extends Component {
         // PROD
         let orderApiPort = 3000;
         let orderWorkerPort = 9000;
-
         // STAGE
         if(window.location.port == 81) {
             orderApiPort = 3100;
@@ -33,6 +34,8 @@ class App extends Component {
             orderWorkerPort = 9200;
         }
 
+        // connect to socket
+        let http = new HttpHelper();
         let url = 'http://138.68.71.39:' + orderWorkerPort;
         const socket = io(url);
         socket.on('connect', function(){
@@ -41,6 +44,7 @@ class App extends Component {
                 socket.emit("restaurantId", restaurantId);
             }
         });
+        // handle new orders
         socket.on('neworder', function(order){
             console.log(order);
             order = JSON.parse(order);
@@ -49,8 +53,10 @@ class App extends Component {
             newState.orders.push(order);
             that.setState(newState)
         });
-        var http = new HttpHelper();
-        http.getOrders(0, orderApiPort).then(result => {
+
+        // load orders
+        let orderApiHelper = OrderApiHelper('http://138.68.71.39:' + orderApiPort);
+        orderApiHelper.getOrders(0, orderApiPort).then(result => {
             if (result) {
                 for(var r = 0; r < result.length; r++) {
                     var order = result[r];
@@ -61,6 +67,8 @@ class App extends Component {
         }).catch(err => {
             console.log(err);
         });
+
+        // class binding
         this.switchToOrderTable = this.switchToOrderTable.bind(this);
         this.switchToSideBar = this.switchToSideBar.bind(this);
         this.changeToHistory = this.changeToHistory.bind(this);
@@ -82,19 +90,25 @@ class App extends Component {
     }
 
     render() {
-        return (
-            <div className={this.state.showSideBar ? 'showSideBar' : '' }>
-                <NavigationBar history={this.state.history} switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>
-                <div className="wrapper">
-                    <div className="wrapper-SideBar">
-                        <SideBar orders={this.state.orders} history={this.state.history} changeToHistory={this.changeToHistory} changeToSideBar={this.changeToSideBar}/>
-                    </div>
-                    <div className="wrapper-OrderTable">
-                        <OrderTable orders={this.state.orders}/>
+        if (false) {
+            return (
+                <div className={this.state.showSideBar ? 'showSideBar' : '' }>
+                    <NavigationBar history={this.state.history} switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>
+                    <div className="wrapper">
+                        <div className="wrapper-SideBar">
+                            <SideBar orders={this.state.orders} history={this.state.history} changeToHistory={this.changeToHistory} changeToSideBar={this.changeToSideBar}/>
+                        </div>
+                        <div className="wrapper-OrderTable">
+                            <OrderTable orders={this.state.orders}/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        ); 
+            );
+        } else {
+            return (
+                <Login/>
+            );
+        }
     }
 }
 
