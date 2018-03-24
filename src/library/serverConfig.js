@@ -24,8 +24,7 @@ class serverConfig {
             adminApiPort = 4200;
             orderWorkerPort = 9200;
         }
-        // let serverUrl = 'http://138.68.71.39';
-        let serverUrl = 'http://172.17.0.1';
+        let serverUrl = 'http://138.68.71.39';
         this.authApi = serverUrl + ':' + authApiPort;
         this.orderApi = serverUrl + ':' + orderApiPort;
         this.adminApi = serverUrl + ':' + adminApiPort;
