@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../assets/css/orderItem.css';
 import OrderItemLine from './orderItemLine';
-import HttpHelper from '../library/httpHelper';
+import OrderApiHelper from '../library/orderApiHelper'
 
 class OrderItem extends Component {
     constructor(props) {
@@ -9,9 +9,9 @@ class OrderItem extends Component {
         this.state = {
             order: props.order,
             close: false
-        }
-    this.myEndFunction = this.myEndFunction.bind(this);
-    this.buttonClicked = this.buttonClicked.bind(this);
+        };
+        this.myEndFunction = this.myEndFunction.bind(this);
+        this.buttonClicked = this.buttonClicked.bind(this);
     }
 
     myEndFunction() {
@@ -22,8 +22,8 @@ class OrderItem extends Component {
         var x = document.querySelector(".parent[data-id='" + orderId + "']");
         x.style.animation = "parent 0.2s";
         x.addEventListener("animationend", this.myEndFunction);
-        var http = new HttpHelper();
-        http.updateOrderStatus(orderId, 1);
+        var orderApi = new OrderApiHelper();
+        orderApi.updateOrderStatus(orderId, 1);
     }
 
     render () {

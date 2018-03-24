@@ -6,6 +6,7 @@ import NavigationBar from './navigationBar';
 import OrderApiHelper from '../library/orderApiHelper'
 
 import ServerConfig from '../library/serverConfig';
+import AuthController from "../library/authController";
 
 const io = require('socket.io-client');
 
@@ -13,6 +14,7 @@ class Restaurant extends Component {
     constructor(props) {
         super(props);
 
+        const auth = new AuthController();
         const cfg = new ServerConfig();
 
         this.state = {
@@ -23,25 +25,33 @@ class Restaurant extends Component {
         };
         const that = this;
 
-        // connect to socket
-        const socket = io(cfg.orderWorker);
-        socket.on('connect', function(){
-            if (this.state.restaurantId) {
-                socket.emit("restaurantId", this.state.restaurantId);
-            }
-        });
-        // handle new orders
-        socket.on('neworder', function(order){
-            console.log(order);
-            order = JSON.parse(order);
-            order.tableNumber = Math.floor(Math.random() * 10);
-            var newState = that.state;
-            newState.orders.push(order);
-            that.setState(newState)
+        auth.getAccessToken().then(accessToken => {
+            // connect to socket
+            console.log(accessToken)
+            const socket = io(cfg.orderWorker, { query: "token=" + accessToken });
+            socket.on('connect', function(){
+                if (that.state.restaurantId) {
+                    socket.emit("restaurantId", that.state.restaurantId);
+                }
+            });
+            // handle new orders
+            socket.on('neworder', function(order){
+                console.log(order);
+                order = JSON.parse(order);
+                order.tableNumber = Math.floor(Math.random() * 10);
+                var newState = that.state;
+                newState.orders.push(order);
+                that.setState(newState)
+            });
+            // handle errors
+            socket.on('err', function(err){
+                console.log(err);
+            });
         });
 
+
         // load orders
-        let orderApiHelper = new OrderApiHelper(cfg.orderApi, this.state.restaurantId);
+        let orderApiHelper = new OrderApiHelper(this.state.restaurantId);
         orderApiHelper.getOrders(0).then(result => {
             if (result) {
                 for(var r = 0; r < result.length; r++) {
@@ -78,7 +88,10 @@ class Restaurant extends Component {
     render() {
         return (
             <div className={this.state.showSideBar ? 'showSideBar' : '' }>
-                <NavigationBar history={this.state.history} switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>
+                <NavigationBar history={this.state.history}
+                               switchToOrderTable={this.switchToOrderTable}
+                               switchToSideBar={this.switchToSideBar}
+                               showSideBar={this.state.showSideBar} />
                 <div className="wrapper">
                     <div className="wrapper-SideBar">
                         <SideBar orders={this.state.orders}

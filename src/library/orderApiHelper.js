@@ -1,9 +1,11 @@
 import HttpHelper from './httpHelper'
+import ServerConfig from './serverConfig'
 
 class OrderApiHelper {
-    constructor (url, restaurantId = false) {
+    constructor (restaurantId = false) {
         // initialize httpHelper
-        this.http = new HttpHelper(url);
+        this.cfg = new ServerConfig();
+        this.http = new HttpHelper(this.cfg.orderApi);
         this.restaurantId = restaurantId;
     }
 
