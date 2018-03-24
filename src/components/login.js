@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './assets/css/login.css';
+import '../assets/css/login.css';
 import LoginForm from './loginForm'
 import LoginRestaurant from './loginRestaurant'
 
-import AuthController from './library/authController';
-import HttpHelper from './library/httpHelper';
-import AuthStore from './library/authStore';
-import ServerConfig from "./library/serverConfig";
+import AuthController from '../library/authController';
+import HttpHelper from '../library/httpHelper';
+import AuthStore from '../library/authStore';
+import ServerConfig from "../library/serverConfig";
 
 class Login extends Component {
     constructor (props) {

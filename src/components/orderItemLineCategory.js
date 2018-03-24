@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './assets/css/orderItemLineCategory.css';
+import '../assets/css/orderItemLineCategory.css';
 
 class OrderItemLineCategory extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class OrderItemLineCategory extends Component {
                 </div>
                 {items}
            </div>
-        ) 
+        )
     }
 }
 

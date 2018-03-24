@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './assets/css/login.css';
+import '../assets/css/login.css';
 import LoginRestaurantItem from "./loginRestaurantItem";
 
 class LoginRestaurant extends Component {

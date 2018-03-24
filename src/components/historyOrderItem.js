@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './assets/css/historyOrderItem.css';
+import '../assets/css/historyOrderItem.css';
 
 class HistoryOrderItem extends Component {
-    
+
     render () {
 
         var today = new Date(this.props.order.timestamp);
@@ -11,18 +11,18 @@ class HistoryOrderItem extends Component {
 
         if(h<10) {
             h = '0'+h
-        } 
+        }
         if(m<10) {
             m = '0'+m
-        } 
+        }
         today = h + ':' + m;
 
         var historyOrderItemLine = [];
-        for (var i = 0; i < this.props.order.items.length; i++) 
+        for (var i = 0; i < this.props.order.items.length; i++)
         {
             historyOrderItemLine.push(<div key={i}>{this.props.order.items[i].nb} &nbsp; {this.props.order.items[i].name}</div>);
         }
-    
+
         return (
             <div className={this.props.order.status === 2 ? 'order-error-color' : ''}>
                 <div className="history-order-item">
@@ -33,8 +33,8 @@ class HistoryOrderItem extends Component {
                     <i className="ion-alert icon-error" onClick={this.props.orderError.bind(this, this.props.order)}></i>
                 </div>
            </div>
-        ) 
-    }   
+        )
+    }
 }
 
 export default HistoryOrderItem;

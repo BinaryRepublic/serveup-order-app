@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './assets/css/app.css';
 
-import Restaurant from "./restaurant";
-import Login from "./login";
+import Restaurant from "./components/restaurant";
+import Login from "./components/login";
 import AuthStore from "./library/authStore";
 import AuthController from "./library/authController";
 

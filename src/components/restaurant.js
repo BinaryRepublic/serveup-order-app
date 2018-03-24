@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './assets/css/app.css';
+import '../assets/css/app.css';
 import OrderTable from './orderTable';
 import SideBar from './sideBar';
 import NavigationBar from './navigationBar';
-import OrderApiHelper from './library/orderApiHelper'
+import OrderApiHelper from '../library/orderApiHelper'
 
-import ServerConfig from './library/serverConfig';
+import ServerConfig from '../library/serverConfig';
 
 const io = require('socket.io-client');
 

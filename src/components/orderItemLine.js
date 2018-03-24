@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './assets/css/orderItemLine.css';
+import '../assets/css/orderItemLine.css';
 import OrderItemLineCategory from './orderItemLineCategory';
 
 

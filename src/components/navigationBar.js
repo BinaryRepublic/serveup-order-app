@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './assets/css/navigationBar.css';
+import '../assets/css/navigationBar.css';
 
 class NavigationBar extends Component {
     constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
     }
-   
+
     onClick () {
         if(this.props.showSideBar) {
             this.props.switchToOrderTable()
@@ -18,7 +18,7 @@ class NavigationBar extends Component {
         var showNavigationHeading;
         if(this.props.showSideBar){
             showNavigationHeading = <div className="header-sidebar-title">Navigation</div>
-        } 
+        }
         return (
             <nav>
                 <div className="header">

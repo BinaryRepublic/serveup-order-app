@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './assets/css/orderItem.css';
+import '../assets/css/orderItem.css';
 import OrderItemLine from './orderItemLine';
-import HttpHelper from './library/httpHelper';
+import HttpHelper from '../library/httpHelper';
 
 class OrderItem extends Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class OrderItem extends Component {
         this.state = {
             order: props.order,
             close: false
-        } 
+        }
     this.myEndFunction = this.myEndFunction.bind(this);
     this.buttonClicked = this.buttonClicked.bind(this);
     }
@@ -17,7 +17,7 @@ class OrderItem extends Component {
     myEndFunction() {
         this.props.buttonClicked(this.state.order);
     }
-   
+
     buttonClicked (orderId) {
         var x = document.querySelector(".parent[data-id='" + orderId + "']");
         x.style.animation = "parent 0.2s";
@@ -31,7 +31,7 @@ class OrderItem extends Component {
         var tableNumberValue;
         if (!this.props.history) {
             tableNumberValue = <div className="tableNumerValue" >{this.state.order.tableNumber}</div>
-        } 
+        }
 
         var today = new Date(this.state.order.timestamp);
         var h = today.getHours();
@@ -39,10 +39,10 @@ class OrderItem extends Component {
 
         if(h<10) {
             h = '0'+h
-        } 
+        }
         if(m<10) {
             m = '0'+m
-        } 
+        }
         today = h + ':' + m;
 
         return (
@@ -53,7 +53,7 @@ class OrderItem extends Component {
                     </div>
 
                     <div className="div-center">
-                        
+
                         <OrderItemLine order={this.state.order}/>
 
                         <div className="timestamp">
@@ -66,7 +66,7 @@ class OrderItem extends Component {
                     </div>
                 </div>
             </div>
-        ) 
+        )
     }
 }
 

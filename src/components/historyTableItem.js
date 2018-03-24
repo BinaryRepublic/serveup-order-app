@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './assets/css/historyTableItem.css';
+import '../assets/css/historyTableItem.css';
 
 class HistoryTableItem extends Component {
 
@@ -11,7 +11,7 @@ class HistoryTableItem extends Component {
                 </p>
             </div>
         )
-    }   
+    }
 }
 
 export default HistoryTableItem;

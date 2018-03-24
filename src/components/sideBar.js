@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './assets/css/sideBar.css';
-import DataController from './DataController';
+import '../assets/css/sideBar.css';
+import DataController from '../library/DataController';
 import History from './history';
 
 class SideBar extends Component {
