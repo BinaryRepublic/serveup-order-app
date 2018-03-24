@@ -96,6 +96,21 @@ class AuthController {
             console.error('NO TOKEN DATA');
         }
     }
+    getAccessToken () {
+        return new Promise((resolve, reject) => {
+            if (this.authStore.accessToken()) {
+                if (!this.authStore.isExpired()) {
+                    resolve(this.authStore.accessToken())
+                } else {
+                    this.refreshToken().then(() => {
+                        resolve(this.authStore.accessToken())
+                    });
+                }
+            } else {
+                reject();
+            }
+        });
+    }
     deleteAuthentication () {
         let that = this;
         return new Promise((resolve) => {

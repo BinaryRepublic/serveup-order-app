@@ -39,27 +39,13 @@ class HttpHelper {
 
     authenticationHeader () {
         return new Promise((resolve) => {
-            if (this.authStore.authAvailable()) {
-                if (this.authStore.isExpired()) {
-                    this.authController.refreshToken().then(res => {
-                        let token = this.authStore.accessToken();
-                        this.config.headers['Access-Token'] = token;
-                        resolve();
-                    }).catch(err => {
-                        console.log(err);
-                    });
-                } else {
-                    let token = this.authStore.accessToken();
-                    if (token) {
-                        this.config.headers['Access-Token'] = token;
-                        resolve();
-                    } else {
-                        console.log('NO TOKEN IN AUTH DATA');
-                    }
-                }
-            } else {
+            this.authController.getAccessToken().then(accessToken => {
+                this.config.headers['Access-Token'] = accessToken;
                 resolve();
-            }
+            }).catch(() => {
+                console.log('NO TOKEN IN AUTH DATA');
+                resolve();
+            });
         });
     }
     get (path, params) {
