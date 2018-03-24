@@ -8,11 +8,11 @@ class OrderItemLine extends Component {
         super(props);
         this.state = {
             order: props.order
-        } 
+        }
     }
 
     render () {
-        var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke"]
+        var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke", ""]
         var array = []
         var result = []
 
@@ -36,7 +36,7 @@ class OrderItemLine extends Component {
             <div>
                 {result}
            </div>
-        ) 
+        )
     }
 }
 

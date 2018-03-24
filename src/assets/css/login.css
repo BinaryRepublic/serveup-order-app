@@ -58,3 +58,36 @@
     background-color: #fff;
 }
 
+#login-restaurant {
+    position: relative;
+    z-index: 3;
+    width: 90%;
+    max-width: 600px;
+    margin: 100px auto;
+}
+#login-restaurant-headline {
+    font-size: 250%;
+    margin-bottom: 30px;
+    color: #fff;
+}
+#login-restaurant-logout {
+    position: absolute;
+    right: 0;
+    top: 25px;
+    color: #fff;
+}
+#login-restaurant-logout:hover {
+    cursor: pointer;
+}
+.login-restaurant-item {
+    padding: 20px;
+    background-color: rgba(255,255,255,0.8);
+}
+.login-restaurant-item:hover {
+    cursor: pointer;
+    background-color: #fff;
+}
+.login-restaurant-item-name {
+    font-size: 130%;
+    margin-bottom: 5px;
+}

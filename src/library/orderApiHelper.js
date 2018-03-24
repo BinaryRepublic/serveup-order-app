@@ -1,12 +1,9 @@
 import HttpHelper from './httpHelper'
 
 class OrderApiHelper {
-    constructor (restaurantId = false) {
+    constructor (url, restaurantId = false) {
         // initialize httpHelper
-        this.http = new HttpHelper('http://138.68.71.39:3200');
-        if(!restaurantId) {
-            restaurantId = this.http.findGetParameter("restaurant-id")
-        }
+        this.http = new HttpHelper(url);
         this.restaurantId = restaurantId;
     }
 
@@ -18,7 +15,7 @@ class OrderApiHelper {
                     'status': status
                 })
                 .then(function (response) {
-                    resolve(response.data);
+                    resolve(response);
                 })
                 .catch(function (error) {
                     reject(error);
@@ -35,7 +32,7 @@ class OrderApiHelper {
                 status: status
             })
             .then(function (response) {
-                resolve(response.data);
+                resolve(response);
             })
             .catch(function (error) {
                 reject(error);

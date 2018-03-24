@@ -1,112 +1,54 @@
 import React, { Component } from 'react';
 import './assets/css/app.css';
-import OrderTable from './orderTable';
-import SideBar from './sideBar';
-import NavigationBar from './navigationBar';
-import HttpHelper from './library/httpHelper'
-import OrderApiHelper from './library/orderApiHelper'
+
+import Restaurant from "./restaurant";
 import Login from "./login";
-const io = require('socket.io-client');
+import AuthStore from "./library/authStore";
+import AuthController from "./library/authController";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showSideBar: false,
-            orders: [],
-            history: false
+            restaurantId: localStorage.getItem('restaurantId')
         };
-        const that = this;
 
-        // -- init ports
-        // -- should be dependent on ENV-Variables later!
-        // PROD
-        let orderApiPort = 3000;
-        let orderWorkerPort = 9000;
-        // STAGE
-        if(window.location.port == 81) {
-            orderApiPort = 3100;
-            orderWorkerPort = 9100;
-        }
-        // DEV
-        else if(window.location.port == 82 || window.location.port == 3000) {
-            orderApiPort = 3200;
-            orderWorkerPort = 9200;
-        }
-
-        // connect to socket
-        let http = new HttpHelper();
-        let url = 'http://138.68.71.39:' + orderWorkerPort;
-        const socket = io(url);
-        socket.on('connect', function(){
-            let restaurantId = http.findGetParameter("restaurant-id");
-            if (restaurantId) {
-                socket.emit("restaurantId", restaurantId);
-            }
-        });
-        // handle new orders
-        socket.on('neworder', function(order){
-            console.log(order);
-            order = JSON.parse(order);
-            order.tableNumber = Math.floor(Math.random() * 10)
-            var newState = that.state;
-            newState.orders.push(order);
-            that.setState(newState)
-        });
-
-        // load orders
-        let orderApiHelper = new OrderApiHelper('http://138.68.71.39:' + orderApiPort);
-        orderApiHelper.getOrders(0, orderApiPort).then(result => {
-            if (result) {
-                for(var r = 0; r < result.length; r++) {
-                    var order = result[r];
-                    order.tableNumber = Math.floor(Math.random() * 10)
-                }
-                that.setState({orders: result})
-            }
-        }).catch(err => {
-            console.log(err);
-        });
+        this.auth = new AuthController();
+        this.authStore = new AuthStore();
 
         // class binding
-        this.switchToOrderTable = this.switchToOrderTable.bind(this);
-        this.switchToSideBar = this.switchToSideBar.bind(this);
-        this.changeToHistory = this.changeToHistory.bind(this);
-        this.changeToSideBar = this.changeToSideBar.bind(this);
+        this.loginDone = this.loginDone.bind(this);
+        this.restaurantLogout = this.restaurantLogout.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
-    switchToOrderTable() {
-      this.setState({showSideBar : false });
+    loginDone (restaurantId) {
+        localStorage.setItem('restaurantId', restaurantId);
+        this.setState({restaurantId: restaurantId});
     }
-    switchToSideBar() {
-        this.setState({history: false});
-        this.setState({showSideBar : true });
+    restaurantLogout () {
+        localStorage.removeItem('restaurantId');
+        this.setState({restaurantId: false});
     }
-    changeToHistory() {
-        this.setState({history: true});
-    }
-    changeToSideBar() {
-        this.setState({history: false});
+    logout () {
+        const that = this;
+        localStorage.removeItem('restaurantId');
+        this.auth.deleteAuthentication().then(() => {
+            that.setState({restaurantId: false});
+        });
     }
 
     render() {
-        if (false) {
+        if (this.state.restaurantId) {
             return (
-                <div className={this.state.showSideBar ? 'showSideBar' : '' }>
-                    <NavigationBar history={this.state.history} switchToOrderTable={this.switchToOrderTable} switchToSideBar={this.switchToSideBar} showSideBar={this.state.showSideBar}/>
-                    <div className="wrapper">
-                        <div className="wrapper-SideBar">
-                            <SideBar orders={this.state.orders} history={this.state.history} changeToHistory={this.changeToHistory} changeToSideBar={this.changeToSideBar}/>
-                        </div>
-                        <div className="wrapper-OrderTable">
-                            <OrderTable orders={this.state.orders}/>
-                        </div>
-                    </div>
-                </div>
+                <Restaurant id={this.state.restaurantId}
+                            restaurantLogout={this.restaurantLogout.bind(this)}
+                            logout={this.logout.bind(this)} />
             );
         } else {
             return (
-                <Login/>
+                <Login loginDone={this.loginDone}
+                       logout={this.logout.bind(this)} />
             );
         }
     }

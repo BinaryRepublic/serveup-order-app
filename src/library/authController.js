@@ -1,13 +1,15 @@
 import axios from 'axios';
 import AuthStore from './authStore';
 import HttpHelper from './httpHelper';
-
+import ServerConfig from './serverConfig';
 
 class AuthController {
-    constructor (requestToken = false, realmHelper) {
+    constructor () {
+        const cfg = new ServerConfig();
         this.authApi = axios.create({
-            baseURL: 'http://138.68.71.39:2200'
+            baseURL: cfg.authApi
         });
+        this.loginApi = cfg.orderApi;
         this.config = {
             headers: {
                 'Accept': 'application/json',
@@ -20,7 +22,7 @@ class AuthController {
         let that = this;
         return new Promise((resolve, reject) => {
             that.authStore.removeAuth();
-            let orderApi = new HttpHelper('http://138.68.71.39:3200');
+            let orderApi = new HttpHelper(this.loginApi);
             orderApi.post('/login', {mail: mail, password: password})
             .then(data => {
                 if (data && data.grant && data.accountId) {
@@ -94,13 +96,16 @@ class AuthController {
             console.error('NO TOKEN DATA');
         }
     }
-    deleteAuthentication (accessToken) {
+    deleteAuthentication () {
         let that = this;
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
+            let accessToken = that.authStore.accessToken();
             that.authStore.removeAuth();
-            let orderApi = new HttpHelper('http://138.68.71.39:3200');
-            orderApi.post('/logout', {accessToken: accessToken})
-            .then(window.location.reload)
+            let orderApi = new HttpHelper(this.loginApi);
+            orderApi.delete('/logout/' + accessToken, {})
+            .then(() => {
+                resolve();
+            })
             .catch(function (error) {
                 console.error(error);
             });

@@ -33,7 +33,7 @@ class HttpHelper {
         for (let key in params) {
             queryStr += key + '=' + params[key] + "&";
         }
-        queryStr.split(0, -1);
+        queryStr = queryStr.slice(0, -1);
         return queryStr;
     }
 
@@ -122,7 +122,7 @@ class HttpHelper {
         const that = this;
         return new Promise((resolve, reject) => {
             that.authenticationHeader().then(() => {
-                that.http.delete(path, params, that.config)
+                that.http.delete(path + that.buildQuery(params), that.config)
                     .then(function (response) {
                         let result = response.data;
                         if (response.status === 200) {
