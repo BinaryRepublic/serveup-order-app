@@ -9,20 +9,20 @@ class serverConfig {
         let authApiPort = 2000;
         let orderApiPort = 3000;
         let adminApiPort = 4000;
-        let orderWorkerPort = 9000;
+        let orderWorkerPort = 6000;
         // STAGE
         if (window.location.port == 81) {
             authApiPort = 2100;
             orderApiPort = 3100;
             adminApiPort = 4100;
-            orderWorkerPort = 9100;
+            orderWorkerPort = 6100;
         }
         // DEV
         else if (window.location.port == 82 || window.location.port == 3000) {
             authApiPort = 2200;
             orderApiPort = 3200;
             adminApiPort = 4200;
-            orderWorkerPort = 9200;
+            orderWorkerPort = 6200;
         }
         let serverUrl = 'http://138.68.71.39';
         this.authApi = serverUrl + ':' + authApiPort;
