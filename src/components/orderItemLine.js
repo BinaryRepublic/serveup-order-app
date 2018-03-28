@@ -12,12 +12,15 @@ class OrderItemLine extends Component {
     }
 
     render () {
-        var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke", ""]
+        var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke"]
         var array = []
         var result = []
 
         for (var i = 0; i < categories.length; i++) {
             for (var j = 0; j < this.state.order.items.length; j++ ) {
+                if (categories.indexOf(this.state.order.items[j].category) == -1) {
+                    categories.push(this.state.order.items[j].category)
+                }
                 if (this.state.order.items[j].category === categories[i]) {
                     if (!array.length || array[array.length-1].category !== categories[i]) {
                         array.push({
@@ -29,6 +32,7 @@ class OrderItemLine extends Component {
                 }
             }
         }
+
         for (var k = 0; k < array.length; k++ ){
             result.push(<OrderItemLineCategory name={array[k].category} items={array[k].items} key={k} index={k}/>);
         }
