@@ -5,8 +5,8 @@ import SideBar from './sideBar';
 import NavigationBar from './navigationBar';
 import OrderApiHelper from '../library/orderApiHelper'
 
-import ServerConfig from '../library/serverConfig';
-import AuthController from "../library/authController";
+import ServerConfig from '../serverConfig';
+import AuthController from "../ro-webapp-helper/authentication/authController";
 
 const io = require('socket.io-client');
 
@@ -14,8 +14,8 @@ class Restaurant extends Component {
     constructor(props) {
         super(props);
 
-        const auth = new AuthController();
         const cfg = new ServerConfig();
+        const auth = new AuthController(cfg.authApi);
 
         this.state = {
             showSideBar: false,
@@ -27,7 +27,6 @@ class Restaurant extends Component {
 
         auth.getAccessToken().then(accessToken => {
             // connect to socket
-            console.log(accessToken)
             const socket = io(cfg.orderWorker, { query: "token=" + accessToken });
             socket.on('connect', function(){
                 if (that.state.restaurantId) {

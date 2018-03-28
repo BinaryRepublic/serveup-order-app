@@ -1,11 +1,11 @@
-import HttpHelper from './httpHelper'
-import ServerConfig from './serverConfig'
+import HttpHelper from '../ro-webapp-helper/http'
+import ServerConfig from '../serverConfig'
 
 class OrderApiHelper {
     constructor (restaurantId = false) {
         // initialize httpHelper
         this.cfg = new ServerConfig();
-        this.http = new HttpHelper(this.cfg.orderApi);
+        this.http = new HttpHelper(this.cfg.orderApi, this.cfg.authApi);
         this.restaurantId = restaurantId;
     }
 

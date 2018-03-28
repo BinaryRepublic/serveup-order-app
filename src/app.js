@@ -3,8 +3,10 @@ import './assets/css/app.css';
 
 import Restaurant from "./components/restaurant";
 import Login from "./components/login";
-import AuthStore from "./library/authStore";
-import AuthController from "./library/authController";
+
+import ServerConfig from './serverConfig';
+import AuthStore from "./ro-webapp-helper/authentication/authStore";
+import AuthController from "./ro-webapp-helper/authentication/authController";
 
 class App extends Component {
     constructor(props) {
@@ -12,8 +14,9 @@ class App extends Component {
         this.state = {
             restaurantId: localStorage.getItem('restaurantId')
         };
+        this.serverCfg = new ServerConfig();
 
-        this.auth = new AuthController();
+        this.auth = new AuthController(this.serverCfg.authApi, this.serverCfg.orderApi);
         this.authStore = new AuthStore();
 
         // class binding

@@ -3,10 +3,10 @@ import '../assets/css/login.css';
 import LoginForm from './loginForm'
 import LoginRestaurant from './loginRestaurant'
 
-import AuthController from '../library/authController';
-import HttpHelper from '../library/httpHelper';
-import AuthStore from '../library/authStore';
-import ServerConfig from "../library/serverConfig";
+import AuthController from '../ro-webapp-helper/authentication/authController';
+import HttpHelper from '../ro-webapp-helper/http';
+import AuthStore from '../ro-webapp-helper/authentication/authStore';
+import ServerConfig from "../serverConfig";
 
 class Login extends Component {
     constructor (props) {
@@ -14,9 +14,9 @@ class Login extends Component {
 
         this.cfg = new ServerConfig();
 
-        this.auth = new AuthController();
+        this.auth = new AuthController(this.cfg.authApi, this.cfg.orderApi);
         this.authStore = new AuthStore();
-        this.http = new HttpHelper(this.cfg.adminApi);
+        this.http = new HttpHelper(this.cfg.adminApi, this.cfg.authApi);
 
         this.state = {
             login: !!(this.authStore.accessToken()),
@@ -44,7 +44,7 @@ class Login extends Component {
         const that = this;
         return new Promise((resolve) => {
             // load restaurants
-            that.http = new HttpHelper(this.cfg.adminApi);
+            that.http = new HttpHelper(this.cfg.adminApi, this.cfg.authApi);
             that.http.get('/restaurants', {
                 'accountId': that.authStore.accountId()
             }).then(res => {

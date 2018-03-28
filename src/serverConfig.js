@@ -1,6 +1,3 @@
-import AuthStore from "./authStore";
-import AuthController from "./authController";
-
 class serverConfig {
     constructor () {
         // -- init ports
