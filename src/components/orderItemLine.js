@@ -18,7 +18,7 @@ class OrderItemLine extends Component {
 
         for (var i = 0; i < categories.length; i++) {
             for (var j = 0; j < this.state.order.items.length; j++ ) {
-                if (categories.indexOf(this.state.order.items[j].category) == -1) {
+                if (categories.indexOf(this.state.order.items[j].category) === -1) {
                     categories.push(this.state.order.items[j].category)
                 }
                 if (this.state.order.items[j].category === categories[i]) {

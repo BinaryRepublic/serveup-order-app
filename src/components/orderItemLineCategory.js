@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import '../assets/css/orderItemLineCategory.css';
 
 class OrderItemLineCategory extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render () {
         var items = []
         for (var i = 0; i < this.props.items.length; i++) {
