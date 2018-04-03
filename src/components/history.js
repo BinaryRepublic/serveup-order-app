@@ -14,8 +14,8 @@ class History extends Component {
         this.orderError = this.orderError.bind(this);
     }
 
-    selectTable(table) {
-        this.setState({selectedTable: table})
+    selectTable(tableNb) {
+        this.setState({selectedTable: tableNb})
     }
 
     changeSelectedTable() {
@@ -75,7 +75,7 @@ class History extends Component {
     }
 
     render() {
-        var tables = this.selectionSort(this.props.tables, "tableNumber", "downwards");
+        var tables = this.selectionSort(this.props.tables, "tableNb", "downwards");
 
         if (this.state.selectedTable === undefined)
         {
@@ -83,7 +83,7 @@ class History extends Component {
             for (var i = 0; i < tables.length; i++)
             {
                 var table = tables[i]
-                tableElements.push(<HistoryTableItem table={table} selectTable={this.selectTable} key={i} index={i}/>);
+                tableElements.push(<HistoryTableItem table={table} selectTable={this.selectTable.bind(this, table.tableNb)} key={i} index={i}/>);
             }
             return (
                 <div className="container-history">
@@ -101,8 +101,11 @@ class History extends Component {
 
         } else
         {
-            var orders = this.selectionSort(this.state.selectedTable.orders, "timestamp", "upwards");
-
+            let that = this;
+            let table = this.props.tables.filter(item => {
+                return (item.tableNb === that.state.selectedTable);
+            })[0];
+            var orders = this.selectionSort(table.orders, "timestamp", "upwards");
             var historyOrderElements = [];
             for (var j = 0; j < orders.length; j++)
             {
@@ -117,7 +120,7 @@ class History extends Component {
                     <div onClick={this.changeSelectedTable} className="history-header-back-table">
                         <i className="ion-arrow-left-b icon-back"></i>
                         <div className="history-header-title">
-                            Table {this.state.selectedTable.tableNumber}
+                            Table {this.state.selectedTable.tableNb}
                         </div>
                     </div>
                     <div className="history-order-items">

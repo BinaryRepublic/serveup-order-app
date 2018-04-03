@@ -20,6 +20,7 @@ class Restaurant extends Component {
         this.state = {
             showSideBar: false,
             orders: [],
+            historyOrders: [],
             history: false,
             restaurantId: localStorage.getItem('restaurantId')
         };
@@ -35,9 +36,7 @@ class Restaurant extends Component {
             });
             // handle new orders
             socket.on('neworder', function(order){
-                console.log(order);
                 order = JSON.parse(order);
-                order.tableNumber = Math.floor(Math.random() * 10);
                 var newState = that.state;
                 newState.orders.push(order);
                 that.setState(newState)
@@ -53,11 +52,16 @@ class Restaurant extends Component {
         let orderApiHelper = new OrderApiHelper(this.state.restaurantId);
         orderApiHelper.getOrders(0).then(result => {
             if (result) {
-                for(var r = 0; r < result.length; r++) {
-                    var order = result[r];
-                    order.tableNumber = Math.floor(Math.random() * 10)
-                }
                 that.setState({orders: result})
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+
+        // load history orders
+        orderApiHelper.getOrders(1).then(result => {
+            if (result) {
+                that.setState({historyOrders: result})
             }
         }).catch(err => {
             console.log(err);
@@ -68,6 +72,7 @@ class Restaurant extends Component {
         this.switchToSideBar = this.switchToSideBar.bind(this);
         this.changeToHistory = this.changeToHistory.bind(this);
         this.changeToSideBar = this.changeToSideBar.bind(this);
+        this.orderFinished = this.orderFinished.bind(this);
     }
 
     switchToOrderTable() {
@@ -84,6 +89,19 @@ class Restaurant extends Component {
         this.setState({history: false});
     }
 
+    orderFinished (orderId) {
+        let newState = this.state;
+        for (let x = 0; x < newState.orders.length; x++) {
+            if (newState.orders[x].id === orderId) {
+                newState.orders[x].status = 1;
+                newState.historyOrders.push(newState.orders[x]);
+                newState.orders.splice(x, 1);
+                break;
+            }
+        }
+        this.setState(newState);
+    }
+
     render() {
         return (
             <div className={this.state.showSideBar ? 'showSideBar' : '' }>
@@ -93,7 +111,7 @@ class Restaurant extends Component {
                                showSideBar={this.state.showSideBar} />
                 <div className="wrapper">
                     <div className="wrapper-SideBar">
-                        <SideBar orders={this.state.orders}
+                        <SideBar orders={this.state.historyOrders}
                                  history={this.state.history}
                                  changeToHistory={this.changeToHistory}
                                  changeToSideBar={this.changeToSideBar}
@@ -101,7 +119,9 @@ class Restaurant extends Component {
                                  logout={this.props.logout} />
                     </div>
                     <div className="wrapper-OrderTable">
-                        <OrderTable orders={this.state.orders}/>
+                        <OrderTable orders={this.state.orders}
+                                    historyOrders={this.state.historyOrders}
+                                    orderFinished={this.orderFinished}/>
                     </div>
                 </div>
             </div>

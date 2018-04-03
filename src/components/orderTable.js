@@ -3,23 +3,11 @@ import '../assets/css/orderTable.css';
 import OrderItem from './orderItem';
 
 class OrderTable extends Component {
-    constructor(props) {
-        super(props);
-        this.orderFinished = this.orderFinished.bind(this);
-    }
-
-    orderFinished (order) {
-        order.status = 1;
-        this.forceUpdate()
-    }
-
     render () {
         var orderElements = [];
         for (var i = 0; i < this.props.orders.length; i++) {
             var order = this.props.orders[i]
-            if (order.status === 0) {
-                orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.orderFinished} order={order} history={this.props.history}/>);
-            }
+            orderElements.push(<OrderItem key={order.timestamp} index={i} buttonClicked={this.props.orderFinished} order={order} history={this.props.history}/>);
         }
         return (
             <div className="container">

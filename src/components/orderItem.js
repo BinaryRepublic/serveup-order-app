@@ -7,7 +7,6 @@ class OrderItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            order: props.order,
             close: false
         };
         this.myEndFunction = this.myEndFunction.bind(this);
@@ -15,7 +14,7 @@ class OrderItem extends Component {
     }
 
     myEndFunction() {
-        this.props.buttonClicked(this.state.order);
+        this.props.buttonClicked(this.props.order.id);
     }
 
     buttonClicked (orderId) {
@@ -28,12 +27,12 @@ class OrderItem extends Component {
 
     render () {
 
-        var tableNumberValue;
+        var tableNbValue;
         if (!this.props.history) {
-            tableNumberValue = <div className="tableNumberValue" >{this.state.order.tableNumber}</div>
+            tableNbValue = <div className="tableNbValue" >{this.props.order.tableNb}</div>
         }
 
-        var today = new Date(this.state.order.timestamp);
+        var today = new Date(this.props.order.timestamp);
         var h = today.getHours();
         var m = today.getMinutes();
 
@@ -47,21 +46,21 @@ class OrderItem extends Component {
 
         return (
             <div className={this.state.close ? 'closeOrderItem' : '' }>
-                <div className="parent" data-id={this.state.order.id}>
+                <div className="parent" data-id={this.props.order.id}>
                     <div className="div-left">
-                        {tableNumberValue}
+                        {tableNbValue}
                     </div>
 
                     <div className="div-center">
 
-                        <OrderItemLine order={this.state.order}/>
+                        <OrderItemLine order={this.props.order}/>
 
                         <div className="timestamp">
                             {today}
                         </div>
                     </div>
 
-                    <div className="div-right" onClick={this.buttonClicked.bind(this, this.state.order.id)}>
+                    <div className="div-right" onClick={this.buttonClicked.bind(this, this.props.order.id)}>
                         <i className="ion-checkmark check-icon"></i>
                     </div>
                 </div>
