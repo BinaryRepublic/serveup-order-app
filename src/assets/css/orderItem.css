@@ -36,11 +36,11 @@
     position: relative;
 }
 
-.tableNumerValue {
+.tableNumberValue {
     background-color: #fff;
 }
 
-.tableNumerValue {
+.tableNumberValue {
     font-weight: bold;
 }
 
@@ -58,5 +58,5 @@
     top: 50%;
     margin-top: -32.5px;
     left: 50%;
-    margin-left: -23px; 
+    margin-left: -23px;
 }

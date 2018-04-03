@@ -12,29 +12,43 @@ class OrderItemLine extends Component {
     }
 
     render () {
-        var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke"]
-        var array = []
+        var orderItems = []
         var result = []
 
-        for (var i = 0; i < categories.length; i++) {
-            for (var j = 0; j < this.state.order.drinks.length; j++ ) {
-                if (categories.indexOf(this.state.order.drinks[j].category) === -1) {
-                    categories.push(this.state.order.drinks[j].category)
-                }
-                if (this.state.order.drinks[j].category === categories[i]) {
-                    if (!array.length || array[array.length-1].category !== categories[i]) {
-                        array.push({
-                            category: categories[i],
-                            drinks: []
-                        })
+        if (this.state.order.drinks.length) {
+            var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke"]
+
+            for (var i = 0; i < categories.length; i++) {
+                for (var j = 0; j < this.state.order.drinks.length; j++ ) {
+                    if (categories.indexOf(this.state.order.drinks[j].category) === -1) {
+                        categories.push(this.state.order.drinks[j].category)
                     }
-                    array[array.length-1].drinks.push(this.state.order.drinks[j])
+                    if (this.state.order.drinks[j].category === categories[i]) {
+                        if (!orderItems.length || orderItems[orderItems.length-1].category !== categories[i]) {
+                            orderItems.push({
+                                type: 'drink',
+                                category: categories[i],
+                                items: []
+                            })
+                        }
+                        orderItems[orderItems.length-1].items.push(this.state.order.drinks[j])
+                    }
                 }
             }
         }
-
-        for (var k = 0; k < array.length; k++ ){
-            result.push(<OrderItemLineCategory name={array[k].category} drinks={array[k].drinks} key={k} index={k}/>);
+        if (this.state.order.services.length) {
+            let serviceItems = [];
+            this.state.order.services.forEach(item => {
+                serviceItems.push(item.name);
+            });
+            orderItems.push({
+                type: 'service',
+                category: 'Servicewünsche',
+                items: serviceItems
+            });
+        }
+        for (var k = 0; k < orderItems.length; k++ ){
+            result.push(<OrderItemLineCategory name={orderItems[k].category} type={orderItems[k].type} items={orderItems[k].items} key={k} index={k}/>);
         }
         return (
             <div>

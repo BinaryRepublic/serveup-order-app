@@ -30,7 +30,7 @@ class OrderItem extends Component {
 
         var tableNumberValue;
         if (!this.props.history) {
-            tableNumberValue = <div className="tableNumerValue" >{this.state.order.tableNumber}</div>
+            tableNumberValue = <div className="tableNumberValue" >{this.state.order.tableNumber}</div>
         }
 
         var today = new Date(this.state.order.timestamp);
