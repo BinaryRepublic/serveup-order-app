@@ -17,24 +17,24 @@ class OrderItemLine extends Component {
         var result = []
 
         for (var i = 0; i < categories.length; i++) {
-            for (var j = 0; j < this.state.order.items.length; j++ ) {
-                if (categories.indexOf(this.state.order.items[j].category) === -1) {
-                    categories.push(this.state.order.items[j].category)
+            for (var j = 0; j < this.state.order.drinks.length; j++ ) {
+                if (categories.indexOf(this.state.order.drinks[j].category) === -1) {
+                    categories.push(this.state.order.drinks[j].category)
                 }
-                if (this.state.order.items[j].category === categories[i]) {
+                if (this.state.order.drinks[j].category === categories[i]) {
                     if (!array.length || array[array.length-1].category !== categories[i]) {
                         array.push({
                             category: categories[i],
-                            items: []
+                            drinks: []
                         })
                     }
-                    array[array.length-1].items.push(this.state.order.items[j])
+                    array[array.length-1].drinks.push(this.state.order.drinks[j])
                 }
             }
         }
 
         for (var k = 0; k < array.length; k++ ){
-            result.push(<OrderItemLineCategory name={array[k].category} items={array[k].items} key={k} index={k}/>);
+            result.push(<OrderItemLineCategory name={array[k].category} drinks={array[k].drinks} key={k} index={k}/>);
         }
         return (
             <div>

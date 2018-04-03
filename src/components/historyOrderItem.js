@@ -18,9 +18,9 @@ class HistoryOrderItem extends Component {
         today = h + ':' + m;
 
         var historyOrderItemLine = [];
-        for (var i = 0; i < this.props.order.items.length; i++)
+        for (var i = 0; i < this.props.order.drinks.length; i++)
         {
-            historyOrderItemLine.push(<div key={i}>{this.props.order.items[i].nb} &nbsp; {this.props.order.items[i].name}</div>);
+            historyOrderItemLine.push(<div key={i}>{this.props.order.drinks[i].nb} &nbsp; {this.props.order.drinks[i].name}</div>);
         }
 
         return (
