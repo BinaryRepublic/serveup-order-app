@@ -20,15 +20,21 @@ class SideBar extends Component {
             )
         } else {
             return (
-                <div id="nav-bar">
-                    <div className="nav-bar-item" onClick={this.props.changeToHistory}>
-                        History
+                <div>
+                    <div>
+                        <div id="mika-image"></div>
+                        <p class="sidebar-project-name">Restaurant Order</p>
                     </div>
-                    <div className="nav-bar-item" onClick={this.props.restaurantLogout}>
-                        Restaurants
-                    </div>
-                    <div className="nav-bar-item" onClick={this.props.logout}>
-                        Logout
+                    <div id="nav-bar">
+                        <div className="nav-bar-item" onClick={this.props.changeToHistory}>
+                            History
+                        </div>
+                        <div className="nav-bar-item" onClick={this.props.restaurantLogout}>
+                            Restaurants
+                        </div>
+                        <div className="nav-bar-item" onClick={this.props.logout}>
+                            Logout
+                        </div>
                     </div>
                 </div>
             )

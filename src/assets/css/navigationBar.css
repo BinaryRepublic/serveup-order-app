@@ -4,7 +4,8 @@
     top: 0;
     width: 100%;
     z-index: 2;
-    background-color: rgb(44, 255, 139);
+    /* background-color: rgb(44, 255, 139); */
+    background-color: rgb(78, 167, 226);
     color: #fff;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -13,7 +14,7 @@
   
   .header-title-main {
     font-size: 220%;
-    font-weight: bold;
+    font-weight: medium;
     position: relative;
     color: rgb(19, 24, 40);
   }
@@ -24,7 +25,7 @@
 
   .header-sidebar-title {
     font-size: 220%;
-    font-weight: bold;
+    font-weight: medium;
     position: absolute;
     top: 15px;
     left: 120px;

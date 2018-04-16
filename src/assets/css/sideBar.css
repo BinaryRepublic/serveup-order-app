@@ -84,3 +84,10 @@
 .test-color {
     background-color: rgb(184, 96, 96);
 }
+
+.sidebar-project-name {
+    font-weight: bold;
+    font-size: 250%;
+    margin-top: 280px;
+    text-align: center;
+}
