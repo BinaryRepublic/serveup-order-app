@@ -9,4 +9,5 @@
 .orderItemLineCategory {
     text-transform: capitalize;
     line-height: 1.2;
+    margin-top: 0px;
 }

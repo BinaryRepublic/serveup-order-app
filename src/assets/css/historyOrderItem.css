@@ -13,12 +13,13 @@
 
 .icon-error {
     color:red;
-    padding: 10px 20px;
+    padding: 5px 15px;
     border: 1px solid red;
     position: absolute;
-    margin-left: 280px;
+    margin-left: 200px;
     top: 50%;
     margin-top: -25px;
+    font-size: 80%;
 }
 
 .order-error-color {

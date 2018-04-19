@@ -21,9 +21,8 @@ class SideBar extends Component {
         } else {
             return (
                 <div>
-                    <div>
-                        <div id="mika-image"></div>
-                        <p class="sidebar-project-name">Restaurant Order</p>
+                    <div id="logo">
+                        <div id="logo-image"></div>
                     </div>
                     <div id="nav-bar">
                         <div className="nav-bar-item" onClick={this.props.changeToHistory}>
