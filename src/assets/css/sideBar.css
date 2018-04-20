@@ -94,8 +94,9 @@
 
 #logo {
     height: auto;
-    width: 70%;
-    margin: 110px auto 0px auto;
+    display: block;
+    width: 38%;
+    margin: 187px auto 0px auto;
 
 }
 
@@ -105,3 +106,4 @@
     background-size: cover;
     background-position: 50% 50%;
 }
+
