@@ -84,3 +84,26 @@
 .test-color {
     background-color: rgb(184, 96, 96);
 }
+
+.sidebar-project-name {
+    font-weight: bold;
+    font-size: 250%;
+    margin-top: 280px;
+    text-align: center;
+}
+
+#logo {
+    height: auto;
+    display: block;
+    width: 38%;
+    margin: 187px auto 0px auto;
+
+}
+
+#logo-image {
+    height: 300px;
+    background-image: url("../logo-image.svg");
+    background-size: cover;
+    background-position: 50% 50%;
+}
+

@@ -1,9 +1,13 @@
-.orderDrinkLineCategory {
-    line-height: 1.5;
-    font-weight: bold;
-}
-
 .orderDrinkLineName {
     font-size: 90%;
-    margin-top: 5px;
+    margin-top: 15px;
+    margin-bottom: 2px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.orderItemLineCategory {
+    text-transform: capitalize;
+    line-height: 1.2;
+    margin-top: 0px;
 }
