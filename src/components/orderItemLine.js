@@ -16,7 +16,7 @@ class OrderItemLine extends Component {
         var result = []
 
         if (this.state.order.drinks.length) {
-            var categories = ["softdrinks", "bier", "wein", "schnaps", "heissgetränke"]
+            var categories = ["softdrinks", "bier", "wein", "cocktails", "schnaps", "heissgetränke"]
 
             for (var i = 0; i < categories.length; i++) {
                 for (var j = 0; j < this.state.order.drinks.length; j++ ) {
