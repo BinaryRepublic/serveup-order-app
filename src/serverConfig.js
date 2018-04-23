@@ -6,7 +6,7 @@ class serverConfig {
         let authApiPort = 2000;
         let orderApiPort = 3000;
         let adminApiPort = 4000;
-        let orderWorkerPort = 6000;
+        let orderWorkerPort = 9000;
         // STAGE
         if (window.location.port == 81) {
             authApiPort = 2100;
