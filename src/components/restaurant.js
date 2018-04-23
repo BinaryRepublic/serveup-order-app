@@ -30,6 +30,7 @@ class Restaurant extends Component {
             // connect to socket
             const socket = io(cfg.orderWorker, { query: "token=" + accessToken });
             socket.on('connect', function(){
+                console.log('connected');
                 if (that.state.restaurantId) {
                     socket.emit("restaurantId", that.state.restaurantId);
                 }
@@ -37,6 +38,7 @@ class Restaurant extends Component {
             // handle new orders
             socket.on('neworder', function(order){
                 order = JSON.parse(order);
+                console.log(order);
                 var newState = that.state;
                 newState.orders.push(order);
                 that.setState(newState)
